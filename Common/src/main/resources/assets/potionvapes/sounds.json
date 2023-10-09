@@ -1,0 +1,15 @@
+{
+  "vape": {
+    "subtitle": "potionvapes.subtitle.vape",
+    "sounds": [
+      "potionvapes:vape1",
+      "potionvapes:vape2"
+    ]
+  },
+  "exhale": {
+    "subtitle": "potionvapes.subtitle.exhale",
+    "sounds": [
+      "potionvapes:exhale1"
+    ]
+  }
+}

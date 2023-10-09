@@ -1,0 +1,39 @@
+{
+  "item.potionvapes.vape": "Vape",
+  "item.potionvapes.reinforced_vape": "Reinforced Vape",
+  "item.potionvapes.vape_juice": "Vape Juice",
+
+  "item.potionvapes.black_disposable_vape": "Black Disposable Vape",
+  "item.potionvapes.purple_disposable_vape": "Purple Disposable Vape",
+  "item.potionvapes.light_gray_disposable_vape": "Light Gray Disposable Vape",
+  "item.potionvapes.magenta_disposable_vape": "Magenta Disposable Vape",
+  "item.potionvapes.gray_disposable_vape": "Gray Disposable Vape",
+  "item.potionvapes.cyan_disposable_vape": "Cyan Disposable Vape",
+  "item.potionvapes.yellow_disposable_vape": "Yellow Disposable Vape",
+  "item.potionvapes.light_blue_disposable_vape": "Light Blue Disposable Vape",
+  "item.potionvapes.lime_disposable_vape": "Lime Disposable Vape",
+  "item.potionvapes.red_disposable_vape": "Red Disposable Vape",
+  "item.potionvapes.orange_disposable_vape": "Orange Disposable Vape",
+  "item.potionvapes.white_disposable_vape": "White Disposable Vape",
+  "item.potionvapes.pink_disposable_vape": "Pink Disposable Vape",
+  "item.potionvapes.blue_disposable_vape": "Blue Disposable Vape",
+  "item.potionvapes.brown_disposable_vape": "Brown Disposable Vape",
+  "item.potionvapes.green_disposable_vape": "Green Disposable Vape",
+
+  "block.potionvapes.vape_juicer": "Vape Juicer",
+
+  "enchantment.potionvapes.inhaling": "Inhaling",
+  "enchantment.potionvapes.economical": "Economical",
+
+  "death.attack.vape_choke": "%1$s choked on a vape",
+
+  "potionvapes.container.vape_juicer": "Vape Juicer",
+
+  "potionvapes.subtitle.vape": "Vaping",
+  "potionvapes.subtitle.exhale": "Exhaling",
+
+  "itemGroup.potionvapes": "Potion Vapes",
+
+  "potionvapes.empty": "Empty",
+  "potionvapes.effects": "Effects:"
+}

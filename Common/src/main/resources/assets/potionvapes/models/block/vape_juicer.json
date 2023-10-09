@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/oak_planks",
+    "east": "potionvapes:block/vape_juicer_side",
+    "north": "potionvapes:block/vape_juicer_front",
+    "particle": "potionvapes:block/vape_juicer_front",
+    "south": "potionvapes:block/vape_juicer_side",
+    "up": "potionvapes:block/vape_juicer_top",
+    "west": "potionvapes:block/vape_juicer_front"
+  }
+}

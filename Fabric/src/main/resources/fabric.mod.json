@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "potionvapes",
+  "version": "${version}",
+  "name": "Potion Vapes",
+  "description": "Adds useful vapes to the game!",
+  "authors": ["Khajiitos"],
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "contact": {
+    "homepage": "https://github.com/Khajiitos/ServerCountryFlags",
+    "sources": "https://github.com/Khajiitos/ServerCountryFlags",
+    "issues": "https://github.com/Khajiitos/ServerCountryFlags/issues"
+  },
+  "entrypoints": {
+    "main": [
+      "me.khajiitos.potionvapes.fabric.PotionVapesFabric"
+    ],
+    "client": [
+      "me.khajiitos.potionvapes.fabric.client.PotionVapesClient"
+    ]
+  },
+  "mixins": [
+    "potionvapes.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "fabric": "*",
+    "minecraft": "${minecraft_version_range}",
+    "java": ">=17"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "potionvapes:item/light_blue_disposable_vape"
+  }
+}

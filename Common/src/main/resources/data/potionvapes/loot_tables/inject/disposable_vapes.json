@@ -1,0 +1,91 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "item",
+          "name": "potionvapes:white_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:orange_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:magenta_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:light_blue_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:yellow_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:lime_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:pink_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:gray_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:light_gray_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:cyan_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:purple_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:blue_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:brown_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:green_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:red_disposable_vape",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "potionvapes:black_disposable_vape",
+          "weight": 10
+        }
+      ]
+    }
+  ],
+  "random_sequence": "potionvapes:inject/disposable_vapes"
+}
