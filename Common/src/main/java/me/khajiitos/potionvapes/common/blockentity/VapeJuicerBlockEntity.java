@@ -45,7 +45,14 @@ public class VapeJuicerBlockEntity extends BlockEntity {
 
         boolean updated = false;
 
-        if (itemFirst.getItem() instanceof VapeJuiceItem && itemSecond.getItem() instanceof PotionItem) {
+        ItemStack result;
+        if (itemFirst.getItem() instanceof VapeJuiceItem vapeJuiceItem && itemSecond.getItem() instanceof PotionItem) {
+            result = itemFirst.copy();
+            vapeJuiceItem.
+            //TODO FINISH
+        }
+
+        if (result != null) {
             blockEntity.progress++;
             updated = true;
         }
