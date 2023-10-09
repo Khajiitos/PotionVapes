@@ -14,10 +14,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.phys.Vec3;
@@ -47,6 +50,10 @@ public class VapeItem extends Item implements IVapeDevice {
             return InteractionResultHolder.consume(itemStack);
         }
 
+        if (getVapeJuiceLeft(itemStack) <= 0) {
+            return InteractionResultHolder.fail(itemStack);
+        }
+
         player.startUsingItem(interactionHand);
 
         if (vapeSounds.containsKey(player)) {
@@ -63,6 +70,29 @@ public class VapeItem extends Item implements IVapeDevice {
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int tick) {
         int tickIn = getUseDuration(itemStack) - tick;
+
+        if (itemStack.getItem() instanceof IVapeDevice vapeDevice) {
+            double left = vapeDevice.getVapeJuiceLeft(itemStack);
+            double use = vapeDevice.getVapeJuiceUsagePerTick(itemStack);
+
+            if (left <= use) {
+                vapeDevice.emptyVapeJuice(itemStack);
+                livingEntity.stopUsingItem();
+            }
+
+            vapeDevice.setVapeJuiceLeft(itemStack, left - use);
+
+            Potion potion = vapeDevice.getVapeJuicePotion(itemStack);
+
+            double release = vapeDevice.getVapeJuiceReleasePerTick(itemStack);
+
+            if (!potion.getEffects().isEmpty()) {
+                for (MobEffectInstance effect : potion.getEffects()) {
+                    livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), (int)(release * effect.getDuration()), effect.getAmplifier()));
+                }
+            }
+        }
+
         if (tickIn > 80 && tickIn % 5 == 0) {
             livingEntity.hurt(VapeDamageTypes.vapeChoke(level), 1.f);
         }
@@ -104,5 +134,10 @@ public class VapeItem extends Item implements IVapeDevice {
     public double getVapeJuiceUsagePerTick(ItemStack itemStack) {
         // TODO: consider enchantments
         return 0.1;
+    }
+
+    @Override
+    public double getVapeJuiceReleasePerTick(ItemStack itemStack) {
+        return 0.125;
     }
 }

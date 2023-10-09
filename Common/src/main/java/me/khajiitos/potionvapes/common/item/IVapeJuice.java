@@ -21,6 +21,19 @@ public interface IVapeJuice {
         return getVapeJuiceTag(itemStack).getDouble("Left");
     };
 
+    default void setVapeJuicePotionOf(ItemStack itemStack, ItemStack potion) {
+        CompoundTag vapeJuiceTag = getVapeJuiceTag(itemStack);
+        CompoundTag potionTag = potion.getTag();
+
+        if (potionTag != null && potionTag.contains("Potion")) {
+            vapeJuiceTag.putString("Potion", potionTag.getString("Potion"));
+        }
+    };
+
+    default void setVapeJuiceLeft(ItemStack itemStack, double left) {
+        getVapeJuiceTag(itemStack).putDouble("Left", left);
+    };
+
     default CompoundTag getVapeJuiceTag(ItemStack itemStack) {
         return itemStack.getOrCreateTag().getCompound("VapeJuice");
     }

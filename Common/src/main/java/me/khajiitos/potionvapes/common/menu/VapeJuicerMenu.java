@@ -25,19 +25,20 @@ public class VapeJuicerMenu extends AbstractContainerMenu {
     public VapeJuicerMenu(int containerId, Inventory inventory, ContainerLevelAccess containerLevelAccess) {
         super(VapeMenus.VAPE_JUICER_MENU, containerId);
 
-        Container container = new SimpleContainer(3);
-        this.addSlot(new Slot(container, 0, 17, 35));
-        this.addSlot(new Slot(container, 1, 53, 35));
-        this.addSlot(new Slot(container, 2, 125, 35));
-
-        addInventory(inventory);
-
         Optional<BlockEntity> blockEntityOptional = containerLevelAccess.evaluate((Level::getBlockEntity));
         if (blockEntityOptional.isPresent() && blockEntityOptional.get() instanceof VapeJuicerBlockEntity vapeJuicerBlockEntity) {
             this.blockEntity = vapeJuicerBlockEntity;
         } else {
             this.blockEntity = null;
         }
+
+        Container container = this.blockEntity == null ? new SimpleContainer(3) : this.blockEntity;
+
+        this.addSlot(new Slot(container, 0, 17, 35));
+        this.addSlot(new Slot(container, 1, 53, 35));
+        this.addSlot(new Slot(container, 2, 125, 35));
+
+        addInventory(inventory);
     }
 
     public void addInventory(Inventory inventory) {
