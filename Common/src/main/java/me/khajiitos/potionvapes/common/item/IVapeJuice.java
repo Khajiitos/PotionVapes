@@ -1,8 +1,10 @@
 package me.khajiitos.potionvapes.common.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PotionItem;
@@ -30,12 +32,24 @@ public interface IVapeJuice {
         }
     };
 
+    default void setVapeJuicePotion(ItemStack itemStack, Potion potion) {
+        ResourceLocation potionKey = BuiltInRegistries.POTION.getKey(potion);
+        getVapeJuiceTag(itemStack).putString("Potion", potionKey.toString());
+    };
+
     default void setVapeJuiceLeft(ItemStack itemStack, double left) {
         getVapeJuiceTag(itemStack).putDouble("Left", left);
     };
 
     default CompoundTag getVapeJuiceTag(ItemStack itemStack) {
-        return itemStack.getOrCreateTag().getCompound("VapeJuice");
+        CompoundTag tag = itemStack.getOrCreateTag();
+        if (tag.contains("VapeJuice")) {
+            return tag.getCompound("VapeJuice");
+        } else {
+            CompoundTag vapeJuiceTag = new CompoundTag();
+            tag.put("VapeJuice", vapeJuiceTag);
+            return vapeJuiceTag;
+        }
     }
 
     default List<Component> getInfo(ItemStack itemStack) {

@@ -1,5 +1,6 @@
 package me.khajiitos.potionvapes.common.blockentity;
 
+import me.khajiitos.potionvapes.common.item.IVapeDevice;
 import me.khajiitos.potionvapes.common.item.VapeJuiceItem;
 import me.khajiitos.potionvapes.common.stuff.VapeBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -62,6 +63,10 @@ public class VapeJuicerBlockEntity extends BlockEntity implements Container {
             result = itemFirst.copy();
             vapeJuiceItem.setVapeJuicePotionOf(result, itemSecond);
             vapeJuiceItem.setVapeJuiceLeft(result, 1.f);
+        } else if (itemFirst.getItem() instanceof IVapeDevice vapeDevice && itemSecond.getItem() instanceof VapeJuiceItem vapeJuiceItem) {
+            result = itemFirst.copy();
+            vapeDevice.setVapeJuicePotion(result, vapeJuiceItem.getVapeJuicePotion(itemFirst));
+            vapeDevice.setVapeJuiceLeft(result, vapeJuiceItem.getVapeJuiceLeft(itemSecond));
         } else {
             result = null;
         }
@@ -109,7 +114,9 @@ public class VapeJuicerBlockEntity extends BlockEntity implements Container {
     @Override
     public ItemStack removeItem(int i, int amount) {
         ItemStack itemStack = items.get(i);
-        items.get(i).shrink(amount);
+        ItemStack copy = itemStack.copy();
+        copy.shrink(amount);
+        items.set(i, copy);
         return itemStack;
     }
 
