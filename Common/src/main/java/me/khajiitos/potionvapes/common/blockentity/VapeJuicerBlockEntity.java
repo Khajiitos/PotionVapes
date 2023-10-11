@@ -65,7 +65,7 @@ public class VapeJuicerBlockEntity extends BlockEntity implements Container {
             vapeJuiceItem.setVapeJuiceLeft(result, 1.f);
         } else if (itemFirst.getItem() instanceof IVapeDevice vapeDevice && itemSecond.getItem() instanceof VapeJuiceItem vapeJuiceItem) {
             result = itemFirst.copy();
-            vapeDevice.setVapeJuicePotion(result, vapeJuiceItem.getVapeJuicePotion(itemFirst));
+            vapeDevice.setVapeJuicePotion(result, vapeJuiceItem.getVapeJuicePotion(itemSecond));
             vapeDevice.setVapeJuiceLeft(result, vapeJuiceItem.getVapeJuiceLeft(itemSecond));
         } else {
             result = null;

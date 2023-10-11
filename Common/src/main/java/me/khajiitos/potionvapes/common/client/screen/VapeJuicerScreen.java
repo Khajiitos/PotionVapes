@@ -1,4 +1,4 @@
-package me.khajiitos.potionvapes.common.screen;
+package me.khajiitos.potionvapes.common.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.khajiitos.potionvapes.common.PotionVapes;

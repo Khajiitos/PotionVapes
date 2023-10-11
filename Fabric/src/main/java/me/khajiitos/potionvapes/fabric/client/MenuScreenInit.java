@@ -1,6 +1,6 @@
 package me.khajiitos.potionvapes.fabric.client;
 
-import me.khajiitos.potionvapes.common.screen.VapeJuicerScreen;
+import me.khajiitos.potionvapes.common.client.screen.VapeJuicerScreen;
 import me.khajiitos.potionvapes.common.stuff.VapeMenus;
 import net.minecraft.client.gui.screens.MenuScreens;
 

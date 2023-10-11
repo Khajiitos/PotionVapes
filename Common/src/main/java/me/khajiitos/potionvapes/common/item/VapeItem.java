@@ -133,7 +133,7 @@ public class VapeItem extends Item implements IVapeDevice {
     @Override
     public double getVapeJuiceUsagePerTick(ItemStack itemStack) {
         // TODO: consider enchantments
-        return 0.1;
+        return 0.001;
     }
 
     @Override

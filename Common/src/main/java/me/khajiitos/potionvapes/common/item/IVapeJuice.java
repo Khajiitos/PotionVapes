@@ -62,6 +62,7 @@ public interface IVapeJuice {
             Potion potion = getVapeJuicePotion(itemStack);
             list.add(Component.translatable("potionvapes.effects").withStyle(ChatFormatting.GRAY));
             PotionUtils.addPotionTooltip(potion.getEffects(), list, 1.f);
+            list.add(Component.translatable("potionvapes.juice_left", (int)(left * 100)).withStyle(ChatFormatting.GRAY));
         }
 
         return list;

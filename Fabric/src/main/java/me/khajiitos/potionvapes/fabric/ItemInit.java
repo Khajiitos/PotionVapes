@@ -69,6 +69,6 @@ public class ItemInit {
 
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(PotionVapes.MOD_ID, "potion_vapes"), ITEM_GROUP);
 
-        ColorProviderRegistry.ITEM.register((itemStack, i) -> i <= 0 && itemStack.getItem() instanceof IVapeJuice vapeJuice ? PotionUtils.getColor(vapeJuice.getVapeJuicePotion(itemStack)) : -1, VapeItems.VAPE_JUICE);
+        ColorProviderRegistry.ITEM.register((itemStack, i) -> i <= 0 && itemStack.getItem() instanceof IVapeJuice vapeJuice ? vapeJuice.getVapeJuiceLeft(itemStack) <= 0 ? 0x00000000 : PotionUtils.getColor(vapeJuice.getVapeJuicePotion(itemStack)) : -1, VapeItems.VAPE_JUICE);
     }
 }

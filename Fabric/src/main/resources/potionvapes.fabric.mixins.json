@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.khajiitos.potionvapes.fabric.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "GuiMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "potionvapes.refmap.json"
+}

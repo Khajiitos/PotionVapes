@@ -19,6 +19,9 @@ loom {
 repositories {
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.terraformersmc.com/releases/" }
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
@@ -33,6 +36,9 @@ dependencies {
     }
 
     modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
+
+    modImplementation "curse.maven:enchantment-descriptions-250419:4756854"
+    modImplementation "curse.maven:bookshelf-228525:4771035"
 
     implementation project(":Common")
 }

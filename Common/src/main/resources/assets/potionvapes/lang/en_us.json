@@ -23,7 +23,9 @@
   "block.potionvapes.vape_juicer": "Vape Juicer",
 
   "enchantment.potionvapes.inhaling": "Inhaling",
+  "enchantment.potionvapes.inhaling.desc": "Makes vapes more efficient.",
   "enchantment.potionvapes.economical": "Economical",
+  "enchantment.potionvapes.economical.desc": "Makes vapes use less vape juice.",
 
   "death.attack.vape_choke": "%1$s choked on a vape",
 
@@ -35,5 +37,6 @@
   "itemGroup.potionvapes": "Potion Vapes",
 
   "potionvapes.empty": "Empty",
-  "potionvapes.effects": "Effects:"
+  "potionvapes.effects": "Effects:",
+  "potionvapes.juice_left": "Juice left: %d%%"
 }

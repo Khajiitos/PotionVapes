@@ -1,10 +1,8 @@
 package me.khajiitos.potionvapes.common;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.item.ItemColors;
-import net.minecraft.world.inventory.FurnaceMenu;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.client.gui.components.DebugScreenOverlay;
+import net.minecraft.world.BossEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
