@@ -88,7 +88,12 @@ public class VapeItem extends Item implements IVapeDevice {
 
             if (!potion.getEffects().isEmpty()) {
                 for (MobEffectInstance effect : potion.getEffects()) {
-                    livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), (int)(release * effect.getDuration()), effect.getAmplifier()));
+                    MobEffectInstance instance = livingEntity.getEffect(effect.getEffect());
+                    if (instance != null && instance.getAmplifier() == effect.getAmplifier()) {
+                        livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), (int)(instance.getDuration() + release * effect.getDuration()), effect.getAmplifier()));
+                    } else {
+                        livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), (int)(release * effect.getDuration()), effect.getAmplifier()));
+                    }
                 }
             }
         }
@@ -115,6 +120,7 @@ public class VapeItem extends Item implements IVapeDevice {
 
         level.playSound(null, eyePos.x, eyePos.y, eyePos.z, VapeSoundEvents.EXHALE, SoundSource.PLAYERS, 0.3f, 1.f);
 
+        // FIXME: client-side code; use packets or something
         if (livingEntity instanceof Player player && vapeSounds.containsKey(livingEntity)) {
             Minecraft.getInstance().getSoundManager().stop(vapeSounds.get(player));
             vapeSounds.remove(player);
@@ -138,6 +144,7 @@ public class VapeItem extends Item implements IVapeDevice {
 
     @Override
     public double getVapeJuiceReleasePerTick(ItemStack itemStack) {
-        return 0.125;
+        // TODO: consider enchantments
+        return 0.00125;
     }
 }

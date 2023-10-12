@@ -35,7 +35,7 @@ public class HudOverlay {
                     guiGraphics.drawString(Minecraft.getInstance().font, leftComponent, guiGraphics.guiWidth() - 20 - Minecraft.getInstance().font.width(leftComponent), guiGraphics.guiHeight() - 16, 0xFFFFFFFF);
                 } else {
                     guiGraphics.renderItem(vapeJuiceItemStack, 4, guiGraphics.guiHeight() - 20);
-                    guiGraphics.drawString(Minecraft.getInstance().font, leftComponent, guiGraphics.guiWidth() + 20, guiGraphics.guiHeight() - 16, 0xFFFFFFFF);
+                    guiGraphics.drawString(Minecraft.getInstance().font, leftComponent, 20, guiGraphics.guiHeight() - 16, 0xFFFFFFFF);
                 }
             }
         }
