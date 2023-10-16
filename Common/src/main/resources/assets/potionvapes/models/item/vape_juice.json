@@ -1,7 +1,32 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "potionvapes:item/vape_juice_overlay",
-    "layer1": "potionvapes:item/vape_juice"
-  }
+    "layer0": "potionvapes:item/vape_juice"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "potionvapes:juice_left": 0.01
+      },
+      "model": "potionvapes:item/vape_juice_full_1"
+    },
+    {
+      "predicate": {
+        "potionvapes:juice_left": 0.25
+      },
+      "model": "potionvapes:item/vape_juice_full_2"
+    },
+    {
+      "predicate": {
+        "potionvapes:juice_left": 0.5
+      },
+      "model": "potionvapes:item/vape_juice_full_3"
+    },
+    {
+      "predicate": {
+        "potionvapes:juice_left": 0.75
+      },
+      "model": "potionvapes:item/vape_juice_full_4"
+    }
+  ]
 }

@@ -39,7 +39,7 @@ public class VapeJuicerScreen extends AbstractContainerScreen<VapeJuicerMenu> {
             int progress = this.blockEntity.getProgress();
 
             if (progress > 0) {
-                guiGraphics.blit(TEXTURE, 79, 34, 176, 0, (int)(22 * ((float)progress / VapeJuicerBlockEntity.MAX_PROGRESS)), 15);
+                guiGraphics.blit(TEXTURE, this.leftPos + 79, this.topPos + 35, 176, 0, (int)(22 * ((float)progress / VapeJuicerBlockEntity.MAX_PROGRESS)), 15);
             }
         }
 

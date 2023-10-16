@@ -1,34 +1,37 @@
 package me.khajiitos.potionvapes.common.item;
 
+import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.VapeDamageTypes;
+import me.khajiitos.potionvapes.common.client.StoppableSoundManager;
+import me.khajiitos.potionvapes.common.packet.PacketManager;
+import me.khajiitos.potionvapes.common.particle.VapeParticleOption;
+import me.khajiitos.potionvapes.common.stuff.VapeEnchantments;
 import me.khajiitos.potionvapes.common.stuff.VapeParticles;
 import me.khajiitos.potionvapes.common.stuff.VapeSoundEvents;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.item.ItemColors;
+import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
+import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class VapeItem extends Item implements IVapeDevice {
     public VapeItem(int durability) {
@@ -40,7 +43,10 @@ public class VapeItem extends Item implements IVapeDevice {
         return UseAnim.TOOT_HORN;
     }
 
-    public static final Map<Player, SoundInstance> vapeSounds = new HashMap<>();
+    @Override
+    public int getEnchantmentValue() {
+        return 12;
+    }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
@@ -56,13 +62,23 @@ public class VapeItem extends Item implements IVapeDevice {
 
         player.startUsingItem(interactionHand);
 
-        if (vapeSounds.containsKey(player)) {
-            Minecraft.getInstance().getSoundManager().stop(vapeSounds.get(player));
-        }
+        if (level.isClientSide) {
+            StoppableSoundManager.playSound(player.getId(), VapeSoundEvents.VAPE, SoundSource.PLAYERS, 0.75f, 1.f, player.getRandom(), player.getOnPos().above(2));
+        } else {
+            for (Player otherPlayer : level.players()) {
+                if (otherPlayer == player) {
+                    continue;
+                }
 
-        SoundInstance soundInstance = new SimpleSoundInstance(VapeSoundEvents.VAPE, SoundSource.PLAYERS, 0.75f, 1.f, player.getRandom(), player.getOnPos().above(2));
-        Minecraft.getInstance().getSoundManager().play(soundInstance);
-        vapeSounds.put(player, soundInstance);
+                if (player.distanceTo(otherPlayer) > 16.0) {
+                    continue;
+                }
+
+                if (otherPlayer instanceof ServerPlayer otherServerPlayer) {
+                    PacketManager.instance.sendStoppableSound(otherServerPlayer, player, VapeSoundEvents.VAPE, SoundSource.PLAYERS, player.getX(), player.getEyeY(), player.getZ(), 0.75f, 1.f);
+                }
+            }
+        }
 
         return InteractionResultHolder.consume(itemStack);
     }
@@ -120,31 +136,80 @@ public class VapeItem extends Item implements IVapeDevice {
 
         level.playSound(null, eyePos.x, eyePos.y, eyePos.z, VapeSoundEvents.EXHALE, SoundSource.PLAYERS, 0.3f, 1.f);
 
-        // FIXME: client-side code; use packets or something
-        if (livingEntity instanceof Player player && vapeSounds.containsKey(livingEntity)) {
-            Minecraft.getInstance().getSoundManager().stop(vapeSounds.get(player));
-            vapeSounds.remove(player);
+        if (level.isClientSide) {
+            StoppableSoundManager.stopSound(livingEntity.getId());
+        } else {
+            for (Player otherPlayer : level.players()) {
+                if (otherPlayer == livingEntity) {
+                    continue;
+                }
+
+                if (livingEntity.distanceTo(otherPlayer) > 16.0) {
+                    continue;
+                }
+
+                if (otherPlayer instanceof ServerPlayer otherServerPlayer) {
+                    PacketManager.instance.sendStopStoppableSound(otherServerPlayer, livingEntity);
+                }
+            }
         }
 
-        for (int i = 0; i < ticksVaped / 5; i++) {
-            level.addParticle(VapeParticles.VAPE_SMOKE, true, eyePos.x, eyePos.y, eyePos.z, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3 + 0.1, livingEntity.getLookAngle().z * 0.3);
+        itemStack.hurtAndBreak(1, livingEntity, (e) -> e.broadcastBreakEvent(livingEntity.getItemInHand(InteractionHand.OFF_HAND) == itemStack ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND));
+
+        for (int i = 0; i < Math.min(10, ticksVaped / 5); i++) {
+            TickDelayedCalls.addDelayedCall(i * 2, () -> {
+                Vec3 currentEyePos = livingEntity.getEyePosition();
+                for (int j = 0; j < 2; j++) {
+                    if (itemStack.getItem() instanceof IVapeDevice vapeDevice) {
+                        level.addParticle(new VapeParticleOption(vapeDevice.getVapeJuicePotion(itemStack)), true, currentEyePos.x, currentEyePos.y, currentEyePos.z, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3, livingEntity.getLookAngle().z * 0.3);
+                    } else {
+                        level.addParticle(new VapeParticleOption(0xFFFFFFFF), true, currentEyePos.x, currentEyePos.y, currentEyePos.z, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3, livingEntity.getLookAngle().z * 0.3);
+                    }
+                }
+            });
         }
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         list.addAll(getInfo(itemStack));
     }
 
     @Override
     public double getVapeJuiceUsagePerTick(ItemStack itemStack) {
-        // TODO: consider enchantments
-        return 0.001;
+        int economical = EnchantmentHelper.getItemEnchantmentLevel(VapeEnchantments.ECONOMICAL, itemStack);
+        return Math.max(0, 0.0015 - economical * 0.0002);
     }
 
     @Override
     public double getVapeJuiceReleasePerTick(ItemStack itemStack) {
-        // TODO: consider enchantments
-        return 0.00125;
+        int inhaling = EnchantmentHelper.getItemEnchantmentLevel(VapeEnchantments.INHALING, itemStack);
+        double release = 0.0015 + inhaling * 0.0003;
+
+        double usage = getVapeJuiceUsagePerTick(itemStack);
+
+        Potion potion = getVapeJuicePotion(itemStack);
+
+        if (potion.getEffects().size() == 1) {
+            MobEffectInstance effect = potion.getEffects().get(0);
+            PotionVapes.LOGGER.info("/***********************\\");
+            PotionVapes.LOGGER.info("Release of " + release);
+            PotionVapes.LOGGER.info("Usage of " + usage);
+            PotionVapes.LOGGER.info("Duration " + effect.getDuration() + " ticks");
+            PotionVapes.LOGGER.info("Releasing " + effect.getDuration() * release + " ticks");
+            PotionVapes.LOGGER.info("\\***********************/");
+        }
+
+        return release;
+    }
+
+    @Override
+    public boolean canReplaceJuice() {
+        return true;
+    }
+
+    @Override
+    public boolean isValidRepairItem(@NotNull ItemStack itemStack, ItemStack testedItem) {
+        return testedItem.is(Items.IRON_INGOT);
     }
 }

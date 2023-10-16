@@ -2,27 +2,41 @@ package me.khajiitos.potionvapes.common.blockentity;
 
 import me.khajiitos.potionvapes.common.item.IVapeDevice;
 import me.khajiitos.potionvapes.common.item.VapeJuiceItem;
+import me.khajiitos.potionvapes.common.menu.VapeJuicerMenu;
 import me.khajiitos.potionvapes.common.stuff.VapeBlockEntities;
+import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.network.protocol.game.ClientboundBlockEventPacket;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.AbstractFurnaceMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PotionItem;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CraftingTableBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class VapeJuicerBlockEntity extends BlockEntity implements Container {
+public class VapeJuicerBlockEntity extends BlockEntity implements Container, MenuProvider {
     protected NonNullList<ItemStack> items;
     protected int progress;
     public static final int MAX_PROGRESS = 100;
@@ -33,23 +47,30 @@ public class VapeJuicerBlockEntity extends BlockEntity implements Container {
     }
 
     @Override
-    public void load(CompoundTag tag) {
+    public void load(@NotNull CompoundTag tag) {
         super.load(tag);
-        tag.putInt("Progress", this.progress);
+        this.progress = tag.getInt("Progress");
         ContainerHelper.loadAllItems(tag, this.items);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
+    protected void saveAdditional(@NotNull CompoundTag tag) {
         super.saveAdditional(tag);
-        this.progress = tag.getInt("Progress");
+        tag.putInt("Progress", this.progress);
         ContainerHelper.saveAllItems(tag, this.items);
     }
 
     @Nullable
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return null;
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag() {
+        CompoundTag tag = new CompoundTag();
+        this.saveAdditional(tag);
+        return tag;
     }
 
     public static void serverTick(Level level, BlockPos blockPos, BlockState blockState, VapeJuicerBlockEntity blockEntity) {
@@ -59,11 +80,11 @@ public class VapeJuicerBlockEntity extends BlockEntity implements Container {
         boolean updated = false;
 
         ItemStack result;
-        if (itemFirst.getItem() instanceof VapeJuiceItem vapeJuiceItem && itemSecond.getItem() instanceof PotionItem) {
+        if (itemFirst.getItem() instanceof VapeJuiceItem vapeJuiceItem && itemSecond.getItem() instanceof PotionItem && vapeJuiceItem.getVapeJuiceLeft(itemFirst) <= 0.f && !PotionUtils.getPotion(itemSecond).hasInstantEffects()) {
             result = itemFirst.copy();
             vapeJuiceItem.setVapeJuicePotionOf(result, itemSecond);
             vapeJuiceItem.setVapeJuiceLeft(result, 1.f);
-        } else if (itemFirst.getItem() instanceof IVapeDevice vapeDevice && itemSecond.getItem() instanceof VapeJuiceItem vapeJuiceItem) {
+        } else if (itemFirst.getItem() instanceof IVapeDevice vapeDevice && itemSecond.getItem() instanceof VapeJuiceItem vapeJuiceItem && vapeDevice.canReplaceJuice()) {
             result = itemFirst.copy();
             vapeDevice.setVapeJuicePotion(result, vapeJuiceItem.getVapeJuicePotion(itemSecond));
             vapeDevice.setVapeJuiceLeft(result, vapeJuiceItem.getVapeJuiceLeft(itemSecond));
@@ -71,12 +92,15 @@ public class VapeJuicerBlockEntity extends BlockEntity implements Container {
             result = null;
         }
 
-        if (result != null) {
+        if (result != null && blockEntity.items.get(2).isEmpty()) {
             blockEntity.progress++;
 
-            if (blockEntity.progress >= MAX_PROGRESS) {
+            if (blockEntity.progress > MAX_PROGRESS) {
                 blockEntity.progress = 0;
+
                 blockEntity.items.set(2, result);
+                blockEntity.items.get(0).shrink(1);
+                blockEntity.items.get(1).shrink(1);
             }
 
             updated = true;
@@ -88,7 +112,14 @@ public class VapeJuicerBlockEntity extends BlockEntity implements Container {
         }
 
         if (updated) {
-            blockEntity.setChanged();
+            blockEntity.markUpdated();
+        }
+    }
+
+    public void markUpdated() {
+        if (this.getLevel() != null) {
+            this.setChanged();
+            this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
         }
     }
 
@@ -107,12 +138,12 @@ public class VapeJuicerBlockEntity extends BlockEntity implements Container {
     }
 
     @Override
-    public ItemStack getItem(int i) {
+    public @NotNull ItemStack getItem(int i) {
         return items.get(i);
     }
 
     @Override
-    public ItemStack removeItem(int i, int amount) {
+    public @NotNull ItemStack removeItem(int i, int amount) {
         ItemStack itemStack = items.get(i);
         ItemStack copy = itemStack.copy();
         copy.shrink(amount);
@@ -121,23 +152,34 @@ public class VapeJuicerBlockEntity extends BlockEntity implements Container {
     }
 
     @Override
-    public ItemStack removeItemNoUpdate(int i) {
+    public @NotNull ItemStack removeItemNoUpdate(int i) {
         items.set(i, ItemStack.EMPTY);
         return ItemStack.EMPTY;
     }
 
     @Override
-    public void setItem(int i, ItemStack itemStack) {
+    public void setItem(int i, @NotNull ItemStack itemStack) {
         items.set(i, itemStack);
     }
 
     @Override
-    public boolean stillValid(Player player) {
-        return true;
+    public boolean stillValid(@NotNull Player player) {
+        return Container.stillValidBlockEntity(this, player);
     }
 
     @Override
     public void clearContent() {
         items.clear();
+    }
+
+    @Override
+    public @NotNull Component getDisplayName() {
+        return Component.translatable("potionvapes.container.vape_juicer");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int i, @NotNull Inventory inventory, @NotNull Player player) {
+        return new VapeJuicerMenu(i, inventory, this.level == null ? ContainerLevelAccess.NULL : ContainerLevelAccess.create(this.level, this.getBlockPos()));
     }
 }

@@ -4,9 +4,13 @@
   "package": "me.khajiitos.potionvapes.common.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "ItemInHandRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "refmap": "potionvapes.refmap.json"
+  "refmap": "potionvapes.refmap.json",
+  "mixins": [
+    "LivingEntityMixin"
+  ]
 }

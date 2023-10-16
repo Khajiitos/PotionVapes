@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "q": {
+      "item": "minecraft:quartz"
+    },
+    "g": {
+      "item": "minecraft:glass_bottle"
+    },
+    "c": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "pattern": [
+    "qgq",
+    "qcq",
+    "qqq"
+  ],
+  "result": {
+    "item": "potionvapes:vape_juicer"
+  }
+}

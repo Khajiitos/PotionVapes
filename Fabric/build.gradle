@@ -48,6 +48,8 @@ dependencies {
     modImplementation "curse.maven:enchantment-descriptions-250419:4756854"
     modImplementation "curse.maven:bookshelf-228525:4771035"
 
+    modImplementation "curse.maven:inventory-hud-forge-357540:4699628"
+
     implementation project(":Common")
 }
 

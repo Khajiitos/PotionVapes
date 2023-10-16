@@ -1,12 +1,16 @@
 package me.khajiitos.potionvapes.fabric;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
+import me.khajiitos.potionvapes.common.item.IVapeDevice;
 import me.khajiitos.potionvapes.common.item.IVapeJuice;
+import me.khajiitos.potionvapes.common.item.VapeItem;
 import me.khajiitos.potionvapes.common.stuff.VapeItems;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.fabricmc.fabric.impl.client.rendering.ColorProviderRegistryImpl;
 import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -68,7 +72,5 @@ public class ItemInit {
         Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(PotionVapes.MOD_ID, "black_disposable_vape"), VapeItems.BLACK_DISPOSABLE_VAPE);
 
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(PotionVapes.MOD_ID, "potion_vapes"), ITEM_GROUP);
-
-        ColorProviderRegistry.ITEM.register((itemStack, i) -> i <= 0 && itemStack.getItem() instanceof IVapeJuice vapeJuice ? vapeJuice.getVapeJuiceLeft(itemStack) <= 0 ? 0x00000000 : PotionUtils.getColor(vapeJuice.getVapeJuicePotion(itemStack)) : -1, VapeItems.VAPE_JUICE);
     }
 }

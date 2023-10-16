@@ -5,17 +5,17 @@ import me.khajiitos.potionvapes.common.menu.VapeJuicerMenu;
 import me.khajiitos.potionvapes.common.stuff.VapeBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,22 +24,28 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class VapeJuicerBlock extends BaseEntityBlock {
     public VapeJuicerBlock() {
-        super(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava());
+        super(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASEDRUM).strength(0.8F).requiresCorrectToolForDrops().sound(SoundType.STONE));
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState $$0) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState $$0) {
         return RenderShape.MODEL;
     }
 
+    protected void openMenu(Player player, Level level, BlockPos blockPos) {
+        player.openMenu(level.getBlockState(blockPos).getMenuProvider(level, blockPos));
+    }
+
     @Override
-    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+    @SuppressWarnings("deprecation")
+    public @NotNull InteractionResult use(@NotNull BlockState blockState, Level level, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult blockHitResult) {
         if (!level.isClientSide) {
-            player.openMenu(blockState.getMenuProvider(level, blockPos));
+            openMenu(player, level, blockPos);
             return InteractionResult.CONSUME;
         } else {
             return InteractionResult.SUCCESS;
@@ -47,19 +53,19 @@ public class VapeJuicerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public MenuProvider getMenuProvider(BlockState blockState, Level level, BlockPos blockPos) {
+    public MenuProvider getMenuProvider(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos) {
         return new SimpleMenuProvider((id, inventory, player) -> new VapeJuicerMenu(id, inventory, ContainerLevelAccess.create(level, blockPos)), Component.translatable("potionvapes.container.vape_juicer"));
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new VapeJuicerBlockEntity(blockPos, blockState);
+    public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
+        return VapeBlockEntities.VAPE_JUICER.create(blockPos, blockState);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
         return level.isClientSide ? null : createTickerHelper(blockEntityType, VapeBlockEntities.VAPE_JUICER, VapeJuicerBlockEntity::serverTick);
     }
 }

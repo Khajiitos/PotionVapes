@@ -1,6 +1,7 @@
 package me.khajiitos.potionvapes.fabric;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
+import me.khajiitos.potionvapes.common.particle.VapeParticleOption;
 import me.khajiitos.potionvapes.common.particle.VapeSmokeParticle;
 import me.khajiitos.potionvapes.common.stuff.VapeParticles;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -12,8 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ParticleInit {
     public static void init() {
-        // TODO: this should probably be a complex particle since it has a color
-        VapeParticles.VAPE_SMOKE = FabricParticleTypes.simple();
+        VapeParticles.VAPE_SMOKE = FabricParticleTypes.complex(VapeParticleOption.DESERIALIZER);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, new ResourceLocation(PotionVapes.MOD_ID, "vape_smoke"), VapeParticles.VAPE_SMOKE);
         ParticleFactoryRegistry.getInstance().register(VapeParticles.VAPE_SMOKE, VapeSmokeParticle.Provider::new);
     }

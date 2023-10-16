@@ -2,5 +2,13 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "potionvapes:item/orange_disposable_vape"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "potionvapes:vaping": 1
+      },
+      "model": "potionvapes:item/orange_disposable_vape_vaping"
+    }
+  ]
 }

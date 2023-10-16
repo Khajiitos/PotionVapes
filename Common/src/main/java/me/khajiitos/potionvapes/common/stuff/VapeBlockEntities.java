@@ -7,5 +7,5 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import java.util.Set;
 
 public class VapeBlockEntities {
-    public static BlockEntityType<VapeJuicerBlockEntity> VAPE_JUICER;
+    public static BlockEntityType<? extends VapeJuicerBlockEntity> VAPE_JUICER;
 }

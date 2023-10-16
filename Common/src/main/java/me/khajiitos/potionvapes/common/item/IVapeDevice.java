@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 public interface IVapeDevice extends IVapeJuice {
     double getVapeJuiceUsagePerTick(ItemStack itemStack);
     double getVapeJuiceReleasePerTick(ItemStack itemStack);
-
+    boolean canReplaceJuice();
     default void emptyVapeJuice(ItemStack itemStack) {
         itemStack.getOrCreateTag().remove("VapeJuice");
     };

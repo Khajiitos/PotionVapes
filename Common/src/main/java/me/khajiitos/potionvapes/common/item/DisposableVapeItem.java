@@ -2,6 +2,8 @@ package me.khajiitos.potionvapes.common.item;
 
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 
 public class DisposableVapeItem extends VapeItem {
     public DisposableVapeItem(DyeColor dyeColor) {
@@ -13,7 +15,17 @@ public class DisposableVapeItem extends VapeItem {
     }
 
     @Override
-    public boolean isEnchantable(ItemStack itemStack) {
+    public boolean isEnchantable(@NotNull ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public boolean isValidRepairItem(ItemStack itemStack, ItemStack testedItem) {
+        return false;
+    }
+
+    @Override
+    public boolean canReplaceJuice() {
         return false;
     }
 }
