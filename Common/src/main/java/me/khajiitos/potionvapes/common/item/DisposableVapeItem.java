@@ -20,7 +20,7 @@ public class DisposableVapeItem extends VapeItem {
     }
 
     @Override
-    public boolean isValidRepairItem(ItemStack itemStack, ItemStack testedItem) {
+    public boolean isValidRepairItem(@NotNull ItemStack itemStack, ItemStack testedItem) {
         return false;
     }
 

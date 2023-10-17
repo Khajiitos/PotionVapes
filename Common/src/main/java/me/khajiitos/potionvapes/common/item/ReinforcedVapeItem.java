@@ -5,6 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TieredItem;
+import org.jetbrains.annotations.NotNull;
 
 public class ReinforcedVapeItem extends VapeItem {
     public ReinforcedVapeItem(int durability) {
@@ -17,7 +18,7 @@ public class ReinforcedVapeItem extends VapeItem {
     }
 
     @Override
-    public boolean isValidRepairItem(ItemStack itemStack, ItemStack testedItem) {
+    public boolean isValidRepairItem(@NotNull ItemStack itemStack, ItemStack testedItem) {
         return testedItem.is(Items.NETHERITE_INGOT);
     }
 

@@ -6,6 +6,7 @@ import me.khajiitos.potionvapes.fabric.packet.FabricPacketManager;
 import me.khajiitos.potionvapes.fabric.packet.ClientFabricPackets;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 
 public class PotionVapesFabric implements ModInitializer {
@@ -21,5 +22,8 @@ public class PotionVapesFabric implements ModInitializer {
         MenuInit.init();
         EnchantmentInit.init();
         LootTablesInit.init();
+        ParticleTypeInit.init();
+
+        ServerTickEvents.START_SERVER_TICK.register(TickDelayedCalls::tick);
     }
 }

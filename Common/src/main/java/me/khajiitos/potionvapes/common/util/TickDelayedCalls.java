@@ -1,6 +1,7 @@
 package me.khajiitos.potionvapes.common.util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,8 @@ public class TickDelayedCalls {
         delayedCalls.add(new DelayedCall(ticksFromNow, runnable));
     }
 
-    public static void tick() {
-        delayedCalls.removeIf(DelayedCall::tickMaybeCall);
+    public static void tick(MinecraftServer server) {
+        delayedCalls.removeIf(delayedCall -> delayedCall.tickMaybeCall(server));
     }
 
     private static class DelayedCall {
@@ -25,9 +26,9 @@ public class TickDelayedCalls {
             this.runnable = runnable;
         }
 
-        public boolean tickMaybeCall() {
+        public boolean tickMaybeCall(MinecraftServer server) {
             if (--ticksFromNow <= 0) {
-                Minecraft.getInstance().doRunTask(this.runnable);
+                server.execute(this.runnable);
                 return true;
             }
 

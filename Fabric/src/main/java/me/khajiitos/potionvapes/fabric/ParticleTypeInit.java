@@ -6,15 +6,13 @@ import me.khajiitos.potionvapes.common.particle.VapeSmokeParticle;
 import me.khajiitos.potionvapes.common.stuff.VapeParticles;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 
-public class ParticleInit {
+public class ParticleTypeInit {
     public static void init() {
         VapeParticles.VAPE_SMOKE = FabricParticleTypes.complex(VapeParticleOption.DESERIALIZER);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, new ResourceLocation(PotionVapes.MOD_ID, "vape_smoke"), VapeParticles.VAPE_SMOKE);
-        ParticleFactoryRegistry.getInstance().register(VapeParticles.VAPE_SMOKE, VapeSmokeParticle.Provider::new);
     }
 }

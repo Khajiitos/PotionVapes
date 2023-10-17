@@ -1,18 +1,15 @@
 package me.khajiitos.potionvapes.common.item;
 
-import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.VapeDamageTypes;
 import me.khajiitos.potionvapes.common.client.StoppableSoundManager;
 import me.khajiitos.potionvapes.common.packet.PacketManager;
 import me.khajiitos.potionvapes.common.particle.VapeParticleOption;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantments;
-import me.khajiitos.potionvapes.common.stuff.VapeParticles;
 import me.khajiitos.potionvapes.common.stuff.VapeSoundEvents;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
-import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundDamageEventPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -24,7 +21,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -39,7 +35,7 @@ public class VapeItem extends Item implements IVapeDevice {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack itemStack) {
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack itemStack) {
         return UseAnim.TOOT_HORN;
     }
 
@@ -49,7 +45,7 @@ public class VapeItem extends Item implements IVapeDevice {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if (player.isUnderWater() && !player.hasEffect(MobEffects.WATER_BREATHING)) {
@@ -83,10 +79,8 @@ public class VapeItem extends Item implements IVapeDevice {
         return InteractionResultHolder.consume(itemStack);
     }
 
-
-
     @Override
-    public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int tick) {
+    public void onUseTick(@NotNull Level level, @NotNull LivingEntity livingEntity, @NotNull ItemStack itemStack, int tick) {
         int tickIn = getUseDuration(itemStack) - tick;
 
         if (itemStack.getItem() instanceof IVapeDevice vapeDevice) {
@@ -95,21 +89,22 @@ public class VapeItem extends Item implements IVapeDevice {
 
             if (left <= use) {
                 vapeDevice.emptyVapeJuice(itemStack);
-                livingEntity.stopUsingItem();
+                livingEntity.releaseUsingItem();
+                //livingEntity.stopUsingItem();
             }
 
             double release = vapeDevice.getVapeJuiceReleasePerTick(itemStack);
-
 
             vapeDevice.setVapeJuiceLeft(itemStack, left - use);
 
             Potion potion = vapeDevice.getVapeJuicePotion(itemStack);
 
-
             if (!potion.getEffects().isEmpty()) {
                 for (MobEffectInstance effect : potion.getEffects()) {
                     MobEffectInstance instance = livingEntity.getEffect(effect.getEffect());
-                    int releaseTicks = (int)(effect.getDuration() * release);
+                    int releaseTicks = (int)Math.ceil(effect.getDuration() * release);
+                    double additionalUsage = use * (1.0 / releaseTicks);
+                    vapeDevice.setVapeJuiceLeft(itemStack, Math.max(0.0, vapeDevice.getVapeJuiceLeft(itemStack) - additionalUsage));
                     if (instance != null && instance.getAmplifier() == effect.getAmplifier()) {
                         livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), instance.getDuration() + releaseTicks, effect.getAmplifier()));
                     } else {
@@ -163,17 +158,15 @@ public class VapeItem extends Item implements IVapeDevice {
 
         int smoking = EnchantmentHelper.getItemEnchantmentLevel(VapeEnchantments.SMOKING, itemStack);
 
-        for (int i = 0; i < Math.min(10, ticksVaped / Math.max(1, 5 - smoking)); i++) {
-            TickDelayedCalls.addDelayedCall(i * 2, () -> {
-                Vec3 currentEyePos = livingEntity.getEyePosition();
-                for (int j = 0; j < 2 + 2 * smoking; j++) {
-                    if (itemStack.getItem() instanceof IVapeDevice vapeDevice) {
-                        level.addParticle(new VapeParticleOption(vapeDevice.getVapeJuicePotion(itemStack), smoking * 20), true, currentEyePos.x, currentEyePos.y, currentEyePos.z, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3, livingEntity.getLookAngle().z * 0.3);
-                    } else {
-                        level.addParticle(new VapeParticleOption(0xFFFFFFFF, smoking * 20), true, currentEyePos.x, currentEyePos.y, currentEyePos.z, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3, livingEntity.getLookAngle().z * 0.3);
+        if (itemStack.getItem() instanceof IVapeDevice vapeDevice && level instanceof ServerLevel serverLevel) {
+            for (int i = 0; i < Math.min(10, ticksVaped / Math.max(1, 5 - smoking)); i++) {
+                TickDelayedCalls.addDelayedCall(i * 2, () -> {
+                    Vec3 currentEyePos = livingEntity.getEyePosition();
+                    for (int j = 0; j < 2 + 2 * smoking; j++) {
+                        serverLevel.sendParticles(new VapeParticleOption(vapeDevice.getVapeJuicePotion(itemStack), smoking * 20), currentEyePos.x, currentEyePos.y, currentEyePos.z, 0, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3, livingEntity.getLookAngle().z * 0.3, 1.0);
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -191,31 +184,7 @@ public class VapeItem extends Item implements IVapeDevice {
     @Override
     public double getVapeJuiceReleasePerTick(ItemStack itemStack) {
         int inhaling = EnchantmentHelper.getItemEnchantmentLevel(VapeEnchantments.INHALING, itemStack);
-        double release = 0.0015 + inhaling * 0.0003;
-
-        double usage = getVapeJuiceUsagePerTick(itemStack);
-
-        Potion potion = getVapeJuicePotion(itemStack);
-
-        if (potion.getEffects().size() == 1) {
-            MobEffectInstance effect = potion.getEffects().get(0);
-
-            double releaseDuration = effect.getDuration() * release;
-            double wasted = releaseDuration - Math.floor(releaseDuration);
-            double fix = 1.0 - wasted;
-
-            PotionVapes.LOGGER.info("/***********************\\");
-            PotionVapes.LOGGER.info("Release of " + release);
-            PotionVapes.LOGGER.info("Usage of " + usage);
-            PotionVapes.LOGGER.info("Duration " + effect.getDuration() + " ticks");
-            PotionVapes.LOGGER.info("Fix " + fix);
-            PotionVapes.LOGGER.info("Releasing " + (effect.getDuration() * release + fix) + " ticks");
-            PotionVapes.LOGGER.info("\\***********************/");
-
-            return release + (release * fix);
-        }
-
-        return release;
+        return 0.0015 + inhaling * 0.0003;
     }
 
     @Override
