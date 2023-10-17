@@ -105,10 +105,11 @@ public class VapeItem extends Item implements IVapeDevice {
             if (!potion.getEffects().isEmpty()) {
                 for (MobEffectInstance effect : potion.getEffects()) {
                     MobEffectInstance instance = livingEntity.getEffect(effect.getEffect());
+                    int releaseTicks = (int)(effect.getDuration() * release);
                     if (instance != null && instance.getAmplifier() == effect.getAmplifier()) {
-                        livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), (int)(instance.getDuration() + release * effect.getDuration()), effect.getAmplifier()));
+                        livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), instance.getDuration() + releaseTicks, effect.getAmplifier()));
                     } else {
-                        livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), (int)(release * effect.getDuration()), effect.getAmplifier()));
+                        livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), releaseTicks, effect.getAmplifier()));
                     }
                 }
             }
@@ -192,12 +193,20 @@ public class VapeItem extends Item implements IVapeDevice {
 
         if (potion.getEffects().size() == 1) {
             MobEffectInstance effect = potion.getEffects().get(0);
+
+            double releaseDuration = effect.getDuration() * release;
+            double wasted = releaseDuration - Math.floor(releaseDuration);
+            double fix = 1.0 - wasted;
+
             PotionVapes.LOGGER.info("/***********************\\");
             PotionVapes.LOGGER.info("Release of " + release);
             PotionVapes.LOGGER.info("Usage of " + usage);
             PotionVapes.LOGGER.info("Duration " + effect.getDuration() + " ticks");
-            PotionVapes.LOGGER.info("Releasing " + effect.getDuration() * release + " ticks");
+            PotionVapes.LOGGER.info("Fix " + fix);
+            PotionVapes.LOGGER.info("Releasing " + (effect.getDuration() * release + fix) + " ticks");
             PotionVapes.LOGGER.info("\\***********************/");
+
+            return release + (release * fix);
         }
 
         return release;
