@@ -83,6 +83,8 @@ public class VapeItem extends Item implements IVapeDevice {
         return InteractionResultHolder.consume(itemStack);
     }
 
+
+
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack itemStack, int tick) {
         int tickIn = getUseDuration(itemStack) - tick;
@@ -96,11 +98,13 @@ public class VapeItem extends Item implements IVapeDevice {
                 livingEntity.stopUsingItem();
             }
 
+            double release = vapeDevice.getVapeJuiceReleasePerTick(itemStack);
+
+
             vapeDevice.setVapeJuiceLeft(itemStack, left - use);
 
             Potion potion = vapeDevice.getVapeJuicePotion(itemStack);
 
-            double release = vapeDevice.getVapeJuiceReleasePerTick(itemStack);
 
             if (!potion.getEffects().isEmpty()) {
                 for (MobEffectInstance effect : potion.getEffects()) {
@@ -121,7 +125,7 @@ public class VapeItem extends Item implements IVapeDevice {
     }
 
     @Override
-    public int getUseDuration(ItemStack itemStack) {
+    public int getUseDuration(@NotNull ItemStack itemStack) {
         return 300;
     }
 
@@ -130,7 +134,7 @@ public class VapeItem extends Item implements IVapeDevice {
     }
 
     @Override
-    public void releaseUsing(ItemStack itemStack, Level level, LivingEntity livingEntity, int tick) {
+    public void releaseUsing(@NotNull ItemStack itemStack, Level level, LivingEntity livingEntity, int tick) {
         Vec3 eyePos = livingEntity.getEyePosition();
 
         int ticksVaped = this.getTicksVaped(itemStack, tick);
@@ -157,14 +161,16 @@ public class VapeItem extends Item implements IVapeDevice {
 
         itemStack.hurtAndBreak(1, livingEntity, (e) -> e.broadcastBreakEvent(livingEntity.getItemInHand(InteractionHand.OFF_HAND) == itemStack ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND));
 
-        for (int i = 0; i < Math.min(10, ticksVaped / 5); i++) {
+        int smoking = EnchantmentHelper.getItemEnchantmentLevel(VapeEnchantments.SMOKING, itemStack);
+
+        for (int i = 0; i < Math.min(10, ticksVaped / Math.max(1, 5 - smoking)); i++) {
             TickDelayedCalls.addDelayedCall(i * 2, () -> {
                 Vec3 currentEyePos = livingEntity.getEyePosition();
-                for (int j = 0; j < 2; j++) {
+                for (int j = 0; j < 2 + 2 * smoking; j++) {
                     if (itemStack.getItem() instanceof IVapeDevice vapeDevice) {
-                        level.addParticle(new VapeParticleOption(vapeDevice.getVapeJuicePotion(itemStack)), true, currentEyePos.x, currentEyePos.y, currentEyePos.z, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3, livingEntity.getLookAngle().z * 0.3);
+                        level.addParticle(new VapeParticleOption(vapeDevice.getVapeJuicePotion(itemStack), smoking * 20), true, currentEyePos.x, currentEyePos.y, currentEyePos.z, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3, livingEntity.getLookAngle().z * 0.3);
                     } else {
-                        level.addParticle(new VapeParticleOption(0xFFFFFFFF), true, currentEyePos.x, currentEyePos.y, currentEyePos.z, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3, livingEntity.getLookAngle().z * 0.3);
+                        level.addParticle(new VapeParticleOption(0xFFFFFFFF, smoking * 20), true, currentEyePos.x, currentEyePos.y, currentEyePos.z, livingEntity.getLookAngle().x * 0.3, livingEntity.getLookAngle().y * 0.3, livingEntity.getLookAngle().z * 0.3);
                     }
                 }
             });
@@ -172,7 +178,7 @@ public class VapeItem extends Item implements IVapeDevice {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, List<Component> list, @NotNull TooltipFlag tooltipFlag) {
         list.addAll(getInfo(itemStack));
     }
 

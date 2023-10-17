@@ -11,5 +11,6 @@ public class EnchantmentInit {
     public static void init() {
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation(PotionVapes.MOD_ID, "inhaling"), VapeEnchantments.INHALING);
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation(PotionVapes.MOD_ID, "economical"), VapeEnchantments.ECONOMICAL);
+        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation(PotionVapes.MOD_ID, "smoking"), VapeEnchantments.SMOKING);
     }
 }

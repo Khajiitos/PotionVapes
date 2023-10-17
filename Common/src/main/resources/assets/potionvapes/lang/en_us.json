@@ -26,6 +26,8 @@
   "enchantment.potionvapes.inhaling.description": "Makes vapes more efficient.",
   "enchantment.potionvapes.economical": "Economical",
   "enchantment.potionvapes.economical.description": "Makes vapes use less vape juice.",
+  "enchantment.potionvapes.smoking": "Smoking",
+  "enchantment.potionvapes.smoking.description": "Makes vapes release more smoke.",
 
   "death.attack.vape_choke": "%1$s choked on a vape",
 
