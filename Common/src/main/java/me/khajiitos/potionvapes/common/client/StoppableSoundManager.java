@@ -27,7 +27,7 @@ public class StoppableSoundManager {
     }
 
     public static void playSound(int entityId, SoundEvent soundEvent, SoundSource soundSource, float volume, float pitch, RandomSource randomSource, double x, double y, double z) {
-        playSound(entityId, new SimpleSoundInstance(soundEvent, soundSource, volume, pitch, randomSource, x, y, z));
+        playSound(entityId, new SimpleSoundInstance(soundEvent.getLocation(), soundSource, volume, pitch, randomSource, false, 0, SoundInstance.Attenuation.NONE, x, y, z, true));
     }
 
     public static void stopSound(int entityId) {
