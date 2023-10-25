@@ -24,28 +24,7 @@ public class ItemInit {
     private static final CreativeModeTab ITEM_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(VapeItems.VAPE))
             .title(Component.translatable("itemGroup.potionvapes"))
-            .displayItems((parameters, output) -> {
-                output.accept(VapeItems.VAPE_JUICER);
-                output.accept(VapeItems.VAPE_JUICE);
-                output.accept(VapeItems.VAPE);
-                output.accept(VapeItems.REINFORCED_VAPE);
-                output.accept(VapeItems.WHITE_DISPOSABLE_VAPE);
-                output.accept(VapeItems.ORANGE_DISPOSABLE_VAPE);
-                output.accept(VapeItems.MAGENTA_DISPOSABLE_VAPE);
-                output.accept(VapeItems.LIGHT_BLUE_DISPOSABLE_VAPE);
-                output.accept(VapeItems.YELLOW_DISPOSABLE_VAPE);
-                output.accept(VapeItems.LIME_DISPOSABLE_VAPE);
-                output.accept(VapeItems.PINK_DISPOSABLE_VAPE);
-                output.accept(VapeItems.GRAY_DISPOSABLE_VAPE);
-                output.accept(VapeItems.LIGHT_GRAY_DISPOSABLE_VAPE);
-                output.accept(VapeItems.CYAN_DISPOSABLE_VAPE);
-                output.accept(VapeItems.PURPLE_DISPOSABLE_VAPE);
-                output.accept(VapeItems.BLUE_DISPOSABLE_VAPE);
-                output.accept(VapeItems.BROWN_DISPOSABLE_VAPE);
-                output.accept(VapeItems.GREEN_DISPOSABLE_VAPE);
-                output.accept(VapeItems.RED_DISPOSABLE_VAPE);
-                output.accept(VapeItems.BLACK_DISPOSABLE_VAPE);
-            })
+            .displayItems((parameters, output) -> VapeItems.addToCreativeTab(output))
             .build();
 
     public static void init() {

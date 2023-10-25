@@ -27,7 +27,7 @@ public class VapeJuicerMenu extends AbstractContainerMenu {
     }
 
     public VapeJuicerMenu(int syncId, Inventory inventory, FriendlyByteBuf buf) {
-        this(syncId, inventory, ContainerLevelAccess.create(inventory.player.level(), buf.readBlockPos()));
+        this(syncId, inventory, buf == null ? ContainerLevelAccess.NULL : ContainerLevelAccess.create(inventory.player.level(), buf.readBlockPos()));
     }
 
     public int getContainerSize() {

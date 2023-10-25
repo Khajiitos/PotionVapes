@@ -44,9 +44,11 @@ public class VapeSmokeParticle extends WhiteAshParticle {
         }
 
         public Particle createParticle(ClientLevel level, double x, double y, double z, double velocityX, double velocityY, double velocityZ, int color, int extraLength) {
-            VapeSmokeParticle $$8 = new VapeSmokeParticle(level, x, y, z, velocityX, velocityY, velocityZ, color, 1.f, this.sprite, extraLength);
-            $$8.pickSprite(this.sprite);
-            return $$8;
+            VapeSmokeParticle particle = new VapeSmokeParticle(level, x, y, z, velocityX, velocityY, velocityZ, color, 1.f, this.sprite, extraLength);
+            if (this.sprite != null) {
+                particle.pickSprite(this.sprite);
+            }
+            return particle;
         }
     }
 }

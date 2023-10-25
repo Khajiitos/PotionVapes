@@ -1,26 +1,26 @@
 modLoader = "javafml"
 loaderVersion = "${loader_version_range}"
 license = "MIT"
-issueTrackerURL = "https://github.com/Khajiitos/ServerCountryFlags/issues"
+issueTrackerURL = "https://github.com/Khajiitos/PotionVapes/issues"
 
 [[mods]]
-modId = "servercountryflags"
+modId = "potionvapes"
 version = "${version}"
 logoFile="icon.png"
-displayName = "Server Country Flags"
+displayName = "Potion Vapes"
 authors = "Khajiitos"
-displayURL="https://github.com/Khajiitos/ServerCountryFlags"
-description = '''Shows the flag of where a server is located.'''
+displayURL="https://github.com/Khajiitos/PotionVapes"
+description = '''Adds useful vapes to the game!'''
 displayTest = "IGNORE_ALL_VERSION"
 
-[[dependencies.servercountryflags]]
+[[dependencies.potionvapes]]
 modId = "forge"
 mandatory = true
 versionRange = "${forge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.servercountryflags]]
+[[dependencies.potionvapes]]
 modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_version_range}"

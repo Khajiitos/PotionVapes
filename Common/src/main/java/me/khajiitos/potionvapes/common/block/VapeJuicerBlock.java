@@ -3,6 +3,7 @@ package me.khajiitos.potionvapes.common.block;
 import me.khajiitos.potionvapes.common.blockentity.VapeJuicerBlockEntity;
 import me.khajiitos.potionvapes.common.menu.VapeJuicerMenu;
 import me.khajiitos.potionvapes.common.stuff.VapeBlockEntities;
+import me.khajiitos.potionvapes.common.stuff.VapeBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -30,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 public class VapeJuicerBlock extends BaseEntityBlock {
     public VapeJuicerBlock() {
         super(BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ).instrument(NoteBlockInstrument.BASEDRUM).strength(0.8F).requiresCorrectToolForDrops().sound(SoundType.STONE));
+        VapeBlocks.VAPE_JUICER = this;
     }
 
     @Override

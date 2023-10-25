@@ -37,7 +37,7 @@ public class ItemInHandRendererMixin {
         }
 
         if (currentOffHandItem.getItem() == this.offHandItem.getItem() && currentOffHandItem.getItem() instanceof IVapeDevice) {
-            this.mainHandItem = currentOffHandItem;
+            this.offHandItem = currentOffHandItem;
         }
     }
 }
