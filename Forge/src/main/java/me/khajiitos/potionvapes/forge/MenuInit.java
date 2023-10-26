@@ -1,19 +1,12 @@
 package me.khajiitos.potionvapes.forge;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
-import me.khajiitos.potionvapes.common.blockentity.VapeJuicerBlockEntity;
-import me.khajiitos.potionvapes.common.enchantment.EconomicalEnchantment;
-import me.khajiitos.potionvapes.common.enchantment.InhalingEnchantment;
-import me.khajiitos.potionvapes.common.enchantment.SmokingEnchantment;
 import me.khajiitos.potionvapes.common.menu.VapeJuicerMenu;
-import me.khajiitos.potionvapes.common.stuff.VapeEnchantments;
 import me.khajiitos.potionvapes.common.stuff.VapeMenus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;

@@ -4,13 +4,8 @@ import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.item.IVapeDevice;
 import me.khajiitos.potionvapes.common.item.IVapeJuice;
 import me.khajiitos.potionvapes.common.stuff.VapeItems;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class ClientItemInit {
 

@@ -1,21 +1,11 @@
 package me.khajiitos.potionvapes.forge;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
 import me.khajiitos.potionvapes.common.PotionVapes;
-import me.khajiitos.potionvapes.common.menu.VapeJuicerMenu;
 import me.khajiitos.potionvapes.common.particle.VapeParticleOption;
-import me.khajiitos.potionvapes.common.particle.VapeSmokeParticle;
-import me.khajiitos.potionvapes.common.stuff.VapeMenus;
 import me.khajiitos.potionvapes.common.stuff.VapeParticles;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

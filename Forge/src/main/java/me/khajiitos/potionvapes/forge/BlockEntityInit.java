@@ -1,13 +1,9 @@
 package me.khajiitos.potionvapes.forge;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
-import me.khajiitos.potionvapes.common.block.VapeJuicerBlock;
 import me.khajiitos.potionvapes.common.blockentity.VapeJuicerBlockEntity;
 import me.khajiitos.potionvapes.common.stuff.VapeBlockEntities;
 import me.khajiitos.potionvapes.common.stuff.VapeBlocks;
-import net.minecraft.core.Registry;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

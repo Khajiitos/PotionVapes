@@ -5,14 +5,6 @@ import me.khajiitos.potionvapes.common.packet.PacketManager;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
 import me.khajiitos.potionvapes.forge.client.PotionVapesClient;
 import me.khajiitos.potionvapes.forge.packet.ForgePacketManager;
-import net.minecraft.client.renderer.block.model.ItemOverride;
-import net.minecraft.client.renderer.block.model.ItemOverrides;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -26,8 +18,6 @@ public class PotionVapesForge {
 
     public PotionVapesForge() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        // PacketManager is empty, stoppable sound is not sent
-        // Vape Juicer menu on client-side doesn't know where the block entity is
 
         PacketManager.instance = new ForgePacketManager();
 

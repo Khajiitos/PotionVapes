@@ -1,11 +1,8 @@
 package me.khajiitos.potionvapes.forge.client;
 
-import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.client.HudOverlay;
 import me.khajiitos.potionvapes.common.item.IVapeJuice;
 import me.khajiitos.potionvapes.common.stuff.VapeItems;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
