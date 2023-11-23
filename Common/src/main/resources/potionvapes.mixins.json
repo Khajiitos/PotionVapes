@@ -9,8 +9,5 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "refmap": "potionvapes.refmap.json",
-  "mixins": [
-    "LivingEntityMixin"
-  ]
+  "refmap": "potionvapes.refmap.json"
 }
