@@ -2,9 +2,12 @@ package me.khajiitos.potionvapes.forge;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.packet.PacketManager;
+import me.khajiitos.potionvapes.common.stuff.VapeEnchantmentCategory;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
 import me.khajiitos.potionvapes.forge.client.PotionVapesClient;
 import me.khajiitos.potionvapes.forge.packet.ForgePacketManager;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -21,6 +24,7 @@ public class PotionVapesForge {
 
         PacketManager.instance = new ForgePacketManager();
 
+        VapeEnchantmentCategory.CATEGORY = EnchantmentCategory.create("VAPE", VapeEnchantmentCategory.PREDICATE);
         BlockInit.init(eventBus);
         ItemInit.init(eventBus);
         SoundInit.init(eventBus);
@@ -31,7 +35,6 @@ public class PotionVapesForge {
         ParticleTypeInit.init(eventBus);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> PotionVapesClient::init);
-
         MinecraftForge.EVENT_BUS.addListener(PotionVapesForge::onServerTick);
     }
 

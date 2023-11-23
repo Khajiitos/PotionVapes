@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 
 import java.util.Optional;
 
