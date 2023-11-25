@@ -1,24 +1,14 @@
 package me.khajiitos.potionvapes.fabric;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
-import me.khajiitos.potionvapes.common.item.IVapeDevice;
-import me.khajiitos.potionvapes.common.item.IVapeJuice;
-import me.khajiitos.potionvapes.common.item.VapeItem;
 import me.khajiitos.potionvapes.common.stuff.VapeItems;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
-import net.fabricmc.fabric.impl.client.rendering.ColorProviderRegistryImpl;
-import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class ItemInit {
 

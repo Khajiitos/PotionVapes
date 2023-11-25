@@ -2,8 +2,6 @@ package me.khajiitos.potionvapes.common.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.inventory.MenuConstructor;
 import org.jetbrains.annotations.NotNull;
 
 public class VapeSmokeParticle extends WhiteAshParticle {

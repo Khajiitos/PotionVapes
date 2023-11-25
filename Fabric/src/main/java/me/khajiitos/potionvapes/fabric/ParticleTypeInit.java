@@ -2,9 +2,7 @@ package me.khajiitos.potionvapes.fabric;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.particle.VapeParticleOption;
-import me.khajiitos.potionvapes.common.particle.VapeSmokeParticle;
 import me.khajiitos.potionvapes.common.stuff.VapeParticles;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

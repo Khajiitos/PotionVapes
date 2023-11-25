@@ -6,8 +6,6 @@ import me.khajiitos.potionvapes.common.stuff.VapeEnchantmentCategory;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 
 public class EconomicalEnchantment extends Enchantment {
     public EconomicalEnchantment() {

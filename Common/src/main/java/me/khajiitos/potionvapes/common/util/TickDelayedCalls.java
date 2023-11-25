@@ -1,6 +1,5 @@
 package me.khajiitos.potionvapes.common.util;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 
 import java.util.ArrayList;

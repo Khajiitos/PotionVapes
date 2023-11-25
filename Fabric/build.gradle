@@ -26,6 +26,10 @@ repositories {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
     }
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
 }
 
 dependencies {
@@ -49,6 +53,8 @@ dependencies {
     modImplementation "curse.maven:bookshelf-228525:4771035"
 
     modImplementation "curse.maven:inventory-hud-forge-357540:4699628"
+
+    modImplementation include("fuzs.extensibleenums:extensibleenums-fabric:${extensible_enums_version}")
 
     implementation project(":Common")
 }

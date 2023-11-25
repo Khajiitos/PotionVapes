@@ -3,11 +3,10 @@ package me.khajiitos.potionvapes.common.stuff;
 import me.khajiitos.potionvapes.common.item.DisposableVapeItem;
 import me.khajiitos.potionvapes.common.item.VapeItem;
 import me.khajiitos.potionvapes.common.item.VapeJuiceItem;
-import net.minecraft.client.color.item.ItemColors;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.ItemLike;
-
-import java.util.function.Consumer;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 
 public class VapeItems {
     public static final VapeItem VAPE = new VapeItem(100);

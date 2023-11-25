@@ -8,7 +8,6 @@ import me.khajiitos.potionvapes.common.stuff.VapeEnchantments;
 import me.khajiitos.potionvapes.common.stuff.VapeSoundEvents;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundDamageEventPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;

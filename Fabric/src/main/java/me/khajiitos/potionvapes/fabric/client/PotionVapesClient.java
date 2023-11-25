@@ -1,7 +1,5 @@
 package me.khajiitos.potionvapes.fabric.client;
 
-import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
-import me.khajiitos.potionvapes.fabric.ParticleTypeInit;
 import me.khajiitos.potionvapes.fabric.packet.ClientFabricPackets;
 import net.fabricmc.api.ClientModInitializer;
 

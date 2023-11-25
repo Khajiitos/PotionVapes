@@ -2,7 +2,6 @@ package me.khajiitos.potionvapes.common.item;
 
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 public class DisposableVapeItem extends VapeItem {
