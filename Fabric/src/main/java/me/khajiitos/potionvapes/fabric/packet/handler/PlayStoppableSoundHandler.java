@@ -12,8 +12,8 @@ import net.minecraft.sounds.SoundSource;
 public class PlayStoppableSoundHandler {
     public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
         int entityId = buf.readInt();
-        //Holder<SoundEvent> sound = buf.readById(BuiltInRegistries.SOUND_EVENT.asHolderIdMap(), SoundEvent::readFromNetwork);
-        SoundEvent soundEvent = SoundEvent.readFromNetwork(buf);
+        //Holder<SoundEvent> sound = buf.readById(Registry.SOUND_EVENT.asHolderIdMap(), SoundEvent::readFromNetwork);
+        SoundEvent soundEvent = new SoundEvent(buf.readResourceLocation());
         SoundSource source = buf.readEnum(SoundSource.class);
         double x = buf.readDouble();
         double y = buf.readDouble();

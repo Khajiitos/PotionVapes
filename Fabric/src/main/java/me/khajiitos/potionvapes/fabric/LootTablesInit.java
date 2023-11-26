@@ -4,7 +4,6 @@ import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.loot.VapeLootFunctions;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
@@ -21,7 +20,7 @@ public class LootTablesInit {
     private static final ResourceLocation INJECTED_POOL = new ResourceLocation(PotionVapes.MOD_ID, "inject/disposable_vapes");
 
     public static void init() {
-        Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, new ResourceLocation(PotionVapes.MOD_ID, "random_vape_effect"), VapeLootFunctions.RANDOM_VAPE_EFFECT);
+        Registry.register(Registry.LOOT_FUNCTION_TYPE, new ResourceLocation(PotionVapes.MOD_ID, "random_vape_effect"), VapeLootFunctions.RANDOM_VAPE_EFFECT);
 
         LootTableEvents.MODIFY.register(((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (INJECT_TO.contains(id)) {

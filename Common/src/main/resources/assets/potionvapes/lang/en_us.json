@@ -36,7 +36,7 @@
   "potionvapes.subtitle.vape": "Vaping",
   "potionvapes.subtitle.exhale": "Exhaling",
 
-  "itemGroup.potionvapes": "Potion Vapes",
+  "itemGroup.potionvapes.main": "Potion Vapes",
 
   "potionvapes.empty": "Empty",
   "potionvapes.effects": "Effects:",

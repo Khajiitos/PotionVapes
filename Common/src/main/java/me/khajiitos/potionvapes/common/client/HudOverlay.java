@@ -1,10 +1,10 @@
 package me.khajiitos.potionvapes.common.client;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.khajiitos.potionvapes.common.item.IVapeDevice;
 import me.khajiitos.potionvapes.common.stuff.VapeItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class HudOverlay {
 
-    public static void render(GuiGraphics guiGraphics) {
+    public static void render(PoseStack poseStack, int width, int height) {
         LocalPlayer player = Minecraft.getInstance().player;
 
         if (player == null) {
@@ -31,11 +31,11 @@ public class HudOverlay {
                 Component leftComponent = Component.literal(leftPercent + "%").withStyle(leftPercent > 0 ? ChatFormatting.GRAY : ChatFormatting.RED);
 
                 if (interactionHand == InteractionHand.MAIN_HAND) {
-                    guiGraphics.renderItem(vapeJuiceItemStack, guiGraphics.guiWidth() - 20, guiGraphics.guiHeight() - 20);
-                    guiGraphics.drawString(Minecraft.getInstance().font, leftComponent, guiGraphics.guiWidth() - 20 - Minecraft.getInstance().font.width(leftComponent), guiGraphics.guiHeight() - 16, 0xFFFFFFFF);
+                    Minecraft.getInstance().getItemRenderer().renderGuiItem(vapeJuiceItemStack, width - 20, height - 20);
+                    Minecraft.getInstance().font.draw(poseStack, leftComponent, width - 20 - Minecraft.getInstance().font.width(leftComponent), height - 16, 0xFFFFFFFF);
                 } else {
-                    guiGraphics.renderItem(vapeJuiceItemStack, 4, guiGraphics.guiHeight() - 20);
-                    guiGraphics.drawString(Minecraft.getInstance().font, leftComponent, 20, guiGraphics.guiHeight() - 16, 0xFFFFFFFF);
+                    Minecraft.getInstance().getItemRenderer().renderGuiItem(vapeJuiceItemStack, 4, height - 20);
+                    Minecraft.getInstance().font.draw(poseStack, leftComponent, 20, height - 16, 0xFFFFFFFF);
                 }
             }
         }

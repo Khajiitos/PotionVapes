@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 public record PlayStoppableSoundPacket(int entityId, SoundEvent soundEvent, SoundSource source, double x, double y, double z, float volume, float pitch) {
     public static void encode(PlayStoppableSoundPacket msg, FriendlyByteBuf buf) {
         buf.writeInt(msg.entityId);
-        msg.soundEvent.writeToNetwork(buf);
+        buf.writeResourceLocation(msg.soundEvent.getLocation());
         buf.writeEnum(msg.source);
         buf.writeDouble(msg.x);
         buf.writeDouble(msg.y);
@@ -22,7 +22,7 @@ public record PlayStoppableSoundPacket(int entityId, SoundEvent soundEvent, Soun
 
     public static PlayStoppableSoundPacket decode(FriendlyByteBuf buf) {
         int entityId = buf.readInt();
-        SoundEvent soundEvent = SoundEvent.readFromNetwork(buf);
+        SoundEvent soundEvent = new SoundEvent(buf.readResourceLocation());
         SoundSource source = buf.readEnum(SoundSource.class);
         double x = buf.readDouble();
         double y = buf.readDouble();

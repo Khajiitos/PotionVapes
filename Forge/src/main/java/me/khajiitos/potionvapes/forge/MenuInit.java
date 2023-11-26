@@ -5,7 +5,6 @@ import me.khajiitos.potionvapes.common.menu.VapeJuicerMenu;
 import me.khajiitos.potionvapes.common.stuff.VapeMenus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.network.IContainerFactory;
@@ -22,7 +21,7 @@ public class MenuInit {
             public VapeJuicerMenu create(int windowId, Inventory inv, FriendlyByteBuf data) {
                 return new VapeJuicerMenu(windowId, inv, data);
             }
-        }, FeatureFlagSet.of());
+        });
         return VapeMenus.VAPE_JUICER_MENU;
     });
 

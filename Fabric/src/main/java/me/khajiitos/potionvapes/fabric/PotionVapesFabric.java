@@ -1,6 +1,6 @@
 package me.khajiitos.potionvapes.fabric;
 
-import fuzs.extensibleenums.api.extensibleenums.v1.BuiltInEnumFactories;
+import fuzs.extensibleenums.core.EnumFactories;
 import me.khajiitos.potionvapes.common.packet.PacketManager;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantmentCategory;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
@@ -14,7 +14,7 @@ public class PotionVapesFabric implements ModInitializer {
     public void onInitialize() {
         PacketManager.instance = new FabricPacketManager();
 
-        VapeEnchantmentCategory.CATEGORY = BuiltInEnumFactories.createEnchantmentCategory("VAPE", VapeEnchantmentCategory.PREDICATE);
+        VapeEnchantmentCategory.CATEGORY = EnumFactories.createEnchantmentCategory("VAPE", VapeEnchantmentCategory.PREDICATE);
 
         BlockInit.init();
         ItemInit.init();

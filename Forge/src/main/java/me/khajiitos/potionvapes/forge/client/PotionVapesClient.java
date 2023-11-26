@@ -31,6 +31,6 @@ public class PotionVapesClient {
     }
 
     public static void onRenderHud(RenderGuiOverlayEvent e) {
-        HudOverlay.render(e.getGuiGraphics());
+        HudOverlay.render(e.getPoseStack(), e.getWindow().getGuiScaledWidth(), e.getWindow().getGuiScaledHeight());
     }
 }

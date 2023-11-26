@@ -30,7 +30,7 @@ import java.util.List;
 
 public class VapeItem extends Item implements IVapeDevice {
     public VapeItem(int durability) {
-        super(new Item.Properties().stacksTo(1).durability(durability));
+        super(new Item.Properties().stacksTo(1).durability(durability).tab(CreativeModeTab.TAB_BREWING));
     }
 
     @Override

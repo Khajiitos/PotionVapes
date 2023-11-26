@@ -4,9 +4,11 @@ import me.khajiitos.potionvapes.common.item.DisposableVapeItem;
 import me.khajiitos.potionvapes.common.item.VapeItem;
 import me.khajiitos.potionvapes.common.item.VapeJuiceItem;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.List;
 
 public class VapeItems {
     public static final VapeItem VAPE = new VapeItem(100);
@@ -30,26 +32,26 @@ public class VapeItems {
     public static final DisposableVapeItem RED_DISPOSABLE_VAPE = new DisposableVapeItem(DyeColor.RED);
     public static final DisposableVapeItem BLACK_DISPOSABLE_VAPE = new DisposableVapeItem(DyeColor.BLACK);
 
-    public static void addToCreativeTab(CreativeModeTab.Output output) {
-        output.accept(VapeItems.VAPE_JUICER);
-        output.accept(VapeItems.VAPE_JUICE);
-        output.accept(VapeItems.VAPE);
-        output.accept(VapeItems.REINFORCED_VAPE);
-        output.accept(VapeItems.WHITE_DISPOSABLE_VAPE);
-        output.accept(VapeItems.ORANGE_DISPOSABLE_VAPE);
-        output.accept(VapeItems.MAGENTA_DISPOSABLE_VAPE);
-        output.accept(VapeItems.LIGHT_BLUE_DISPOSABLE_VAPE);
-        output.accept(VapeItems.YELLOW_DISPOSABLE_VAPE);
-        output.accept(VapeItems.LIME_DISPOSABLE_VAPE);
-        output.accept(VapeItems.PINK_DISPOSABLE_VAPE);
-        output.accept(VapeItems.GRAY_DISPOSABLE_VAPE);
-        output.accept(VapeItems.LIGHT_GRAY_DISPOSABLE_VAPE);
-        output.accept(VapeItems.CYAN_DISPOSABLE_VAPE);
-        output.accept(VapeItems.PURPLE_DISPOSABLE_VAPE);
-        output.accept(VapeItems.BLUE_DISPOSABLE_VAPE);
-        output.accept(VapeItems.BROWN_DISPOSABLE_VAPE);
-        output.accept(VapeItems.GREEN_DISPOSABLE_VAPE);
-        output.accept(VapeItems.RED_DISPOSABLE_VAPE);
-        output.accept(VapeItems.BLACK_DISPOSABLE_VAPE);
+    public static void addToCreativeTab(List<ItemStack> output) {
+        output.add(new ItemStack(VapeItems.VAPE_JUICER));
+        output.add(new ItemStack(VapeItems.VAPE_JUICE));
+        output.add(new ItemStack(VapeItems.VAPE));
+        output.add(new ItemStack(VapeItems.REINFORCED_VAPE));
+        output.add(new ItemStack(VapeItems.WHITE_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.ORANGE_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.MAGENTA_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.LIGHT_BLUE_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.YELLOW_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.LIME_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.PINK_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.GRAY_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.LIGHT_GRAY_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.CYAN_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.PURPLE_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.BLUE_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.BROWN_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.GREEN_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.RED_DISPOSABLE_VAPE));
+        output.add(new ItemStack(VapeItems.BLACK_DISPOSABLE_VAPE));
     }
 }

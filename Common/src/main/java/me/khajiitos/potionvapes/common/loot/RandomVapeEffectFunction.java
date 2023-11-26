@@ -4,7 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import me.khajiitos.potionvapes.common.item.IVapeDevice;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
@@ -24,7 +24,7 @@ public class RandomVapeEffectFunction implements LootItemFunction {
     @Override
     public ItemStack apply(ItemStack itemStack, LootContext lootContext) {
         if (itemStack.getItem() instanceof IVapeDevice vapeDevice) {
-            List<Potion> potions = BuiltInRegistries.POTION.stream().filter(potion -> {
+            List<Potion> potions = Registry.POTION.stream().filter(potion -> {
                 if (potion.getEffects().size() != 1) {
                     return false;
                 }

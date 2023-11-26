@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public class ParticleInit {
 
     private static void onRegisterParticleProviders(RegisterParticleProvidersEvent e) {
-        e.registerSpriteSet(VapeParticles.VAPE_SMOKE, VapeSmokeParticle.Provider::new);
+        e.register(VapeParticles.VAPE_SMOKE, VapeSmokeParticle.Provider::new);
     }
 
     public static void init(IEventBus eventBus) {

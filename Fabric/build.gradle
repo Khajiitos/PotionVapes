@@ -49,11 +49,6 @@ dependencies {
 
     modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 
-    modImplementation "curse.maven:enchantment-descriptions-250419:4756854"
-    modImplementation "curse.maven:bookshelf-228525:4771035"
-
-    modImplementation "curse.maven:inventory-hud-forge-357540:4699628"
-
     modImplementation include("fuzs.extensibleenums:extensibleenums-fabric:${extensible_enums_version}")
 
     implementation project(":Common")

@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class BlockEntityInit {
 
     public static void init() {
-        VapeBlockEntities.VAPE_JUICER = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(PotionVapes.MOD_ID, "vape_juicer"), FabricBlockEntityTypeBuilder.create(VapeJuicerBlockEntityFabric::new, VapeBlocks.VAPE_JUICER).build());
+        VapeBlockEntities.VAPE_JUICER = Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(PotionVapes.MOD_ID, "vape_juicer"), FabricBlockEntityTypeBuilder.create(VapeJuicerBlockEntityFabric::new, VapeBlocks.VAPE_JUICER).build());
     }
 
     private static class VapeJuicerBlockEntityFabric extends VapeJuicerBlockEntity implements ExtendedScreenHandlerFactory {

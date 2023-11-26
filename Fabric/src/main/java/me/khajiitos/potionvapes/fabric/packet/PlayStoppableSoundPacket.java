@@ -13,7 +13,7 @@ public class PlayStoppableSoundPacket {
         FriendlyByteBuf buf = PacketByteBufs.create();
 
         buf.writeInt(entity.getId());
-        soundEvent.writeToNetwork(buf);
+        buf.writeResourceLocation(soundEvent.getLocation());
         buf.writeEnum(source);
         buf.writeDouble(x);
         buf.writeDouble(y);

@@ -5,8 +5,7 @@ import me.khajiitos.potionvapes.common.item.DisposableVapeItem;
 import me.khajiitos.potionvapes.common.item.VapeItem;
 import me.khajiitos.potionvapes.common.item.VapeJuiceItem;
 import me.khajiitos.potionvapes.common.stuff.VapeItems;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -15,10 +14,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 public class ItemInit {
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PotionVapes.MOD_ID);
-    private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, PotionVapes.MOD_ID);
 
     private static final RegistryObject<VapeItem> VAPE = ITEMS.register("vape", () -> VapeItems.VAPE);
     private static final RegistryObject<VapeItem> REINFORCED_VAPE = ITEMS.register("reinforced_vape", () -> VapeItems.REINFORCED_VAPE);
@@ -41,14 +40,19 @@ public class ItemInit {
     private static final RegistryObject<VapeJuiceItem> VAPE_JUICE = ITEMS.register("vape_juice", () -> VapeItems.VAPE_JUICE);
     private static final RegistryObject<BlockItem> VAPE_JUICER = ITEMS.register("vape_juicer", () -> VapeItems.VAPE_JUICER);
 
-    private static final RegistryObject<CreativeModeTab> TAB = TABS.register("potion_vapes", () -> CreativeModeTab.builder()
-            .displayItems((pParameters, pOutput) -> VapeItems.addToCreativeTab(pOutput))
-            .icon(() -> new ItemStack(VapeItems.VAPE))
-            .title(Component.translatable("itemGroup.potionvapes"))
-            .build());
+    private static final CreativeModeTab TAB = new CreativeModeTab("potionvapes.main") {
+        @Override
+        public @NotNull ItemStack makeIcon() {
+            return new ItemStack(VapeItems.VAPE);
+        }
+
+        @Override
+        public void fillItemList(@NotNull NonNullList<ItemStack> pItems) {
+            VapeItems.addToCreativeTab(pItems);
+        }
+    };
 
     public static void init(IEventBus eventBus) {
         ITEMS.register(eventBus);
-        TABS.register(eventBus);
     }
 }

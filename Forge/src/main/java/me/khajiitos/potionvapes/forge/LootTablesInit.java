@@ -2,7 +2,7 @@ package me.khajiitos.potionvapes.forge;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.loot.VapeLootFunctions;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
@@ -15,7 +15,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import java.util.List;
 
 public class LootTablesInit {
-    private static final DeferredRegister<LootItemFunctionType> LOOT_FUNCTION_TYPES = DeferredRegister.create(Registries.LOOT_FUNCTION_TYPE, PotionVapes.MOD_ID);
+    private static final DeferredRegister<LootItemFunctionType> LOOT_FUNCTION_TYPES = DeferredRegister.create(Registry.LOOT_FUNCTION_TYPE.key(), PotionVapes.MOD_ID);
 
     private static final List<ResourceLocation> INJECT_TO = List.of(
             new ResourceLocation("chests/abandoned_mineshaft"),
