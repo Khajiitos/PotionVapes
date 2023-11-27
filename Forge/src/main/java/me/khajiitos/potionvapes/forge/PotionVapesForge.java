@@ -6,6 +6,7 @@ import me.khajiitos.potionvapes.common.stuff.VapeEnchantmentCategory;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
 import me.khajiitos.potionvapes.forge.client.PotionVapesClient;
 import me.khajiitos.potionvapes.forge.packet.ForgePacketManager;
+import me.khajiitos.potionvapes.forge.packet.ForgePackets;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,6 +23,7 @@ public class PotionVapesForge {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         PacketManager.instance = new ForgePacketManager();
+        ForgePackets.init();
 
         VapeEnchantmentCategory.CATEGORY = EnchantmentCategory.create("VAPE", VapeEnchantmentCategory.PREDICATE);
         BlockInit.init(eventBus);
