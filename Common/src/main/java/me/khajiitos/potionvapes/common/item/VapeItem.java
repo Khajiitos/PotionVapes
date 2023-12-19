@@ -2,10 +2,12 @@ package me.khajiitos.potionvapes.common.item;
 
 import me.khajiitos.potionvapes.common.VapeDamageTypes;
 import me.khajiitos.potionvapes.common.client.StoppableSoundManager;
+import me.khajiitos.potionvapes.common.effect.VapeMobEffects;
 import me.khajiitos.potionvapes.common.packet.PacketManager;
 import me.khajiitos.potionvapes.common.particle.VapeParticleOption;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantments;
 import me.khajiitos.potionvapes.common.stuff.VapeSoundEvents;
+import me.khajiitos.potionvapes.common.util.ILungCancerable;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -109,6 +111,19 @@ public class VapeItem extends Item implements IVapeDevice {
                     } else {
                         livingEntity.addEffect(new MobEffectInstance(effect.getEffect(), releaseTicks, effect.getAmplifier()));
                     }
+                }
+            }
+
+            if (livingEntity instanceof ILungCancerable lungCancerable) {
+                double multiplier = Math.max(0.0, 1.0 - EnchantmentHelper.getItemEnchantmentLevel(VapeEnchantments.HEALTHY, itemStack) * 0.25);
+                double lungCancerProgress = lungCancerable.getLungCancerProgress();
+                double add = (0.001 + livingEntity.getRandom().nextDouble() * 0.001) * multiplier;
+
+                lungCancerable.setLungCancerProgress(lungCancerProgress + add);
+
+                if (lungCancerProgress + add >= 1.0) {
+                    livingEntity.addEffect(new MobEffectInstance(VapeMobEffects.LUNG_CANCER, -1, 0, false, false, true));
+                    lungCancerable.setLungCancerProgress(Math.max(1.5, lungCancerProgress + add));
                 }
             }
         }

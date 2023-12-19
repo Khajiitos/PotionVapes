@@ -3,19 +3,19 @@ package me.khajiitos.potionvapes.common.enchantment;
 import me.khajiitos.potionvapes.common.item.DisposableVapeItem;
 import me.khajiitos.potionvapes.common.item.VapeItem;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantmentCategory;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 
-public class EconomicalEnchantment extends Enchantment {
-    public EconomicalEnchantment() {
+public class HealthyEnchantment extends Enchantment {
+
+    public HealthyEnchantment() {
         super(Enchantment.Rarity.UNCOMMON, VapeEnchantmentCategory.CATEGORY, new EquipmentSlot[]{EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND});
     }
 
     @Override
     public int getMaxLevel() {
-        return 3;
+        return 4;
     }
 
     @Override

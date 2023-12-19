@@ -2,6 +2,7 @@ package me.khajiitos.potionvapes.forge;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.enchantment.EconomicalEnchantment;
+import me.khajiitos.potionvapes.common.enchantment.HealthyEnchantment;
 import me.khajiitos.potionvapes.common.enchantment.InhalingEnchantment;
 import me.khajiitos.potionvapes.common.enchantment.SmokingEnchantment;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantments;
@@ -17,6 +18,7 @@ public class EnchantmentInit {
     private static final RegistryObject<InhalingEnchantment> INHALING = ENCHANTMENTS.register("inhaling", () -> VapeEnchantments.INHALING);
     private static final RegistryObject<EconomicalEnchantment> ECONOMICAL = ENCHANTMENTS.register("economical", () -> VapeEnchantments.ECONOMICAL);
     private static final RegistryObject<SmokingEnchantment> SMOKING = ENCHANTMENTS.register("smoking", () -> VapeEnchantments.SMOKING);
+    private static final RegistryObject<HealthyEnchantment> HEALTHY = ENCHANTMENTS.register("healthy", () -> VapeEnchantments.HEALTHY);
 
     public static void init(IEventBus eventBus) {
         ENCHANTMENTS.register(eventBus);

@@ -28,6 +28,8 @@
   "enchantment.potionvapes.economical.description": "Makes vapes use less vape juice.",
   "enchantment.potionvapes.smoking": "Smoking",
   "enchantment.potionvapes.smoking.description": "Makes vapes release more smoke.",
+  "enchantment.potionvapes.healthy": "Healthy",
+  "enchantment.potionvapes.healthy.description": "Greatly reduces the chance of getting lung cancer from vaping.",
 
   "death.attack.vape_choke": "%1$s choked on a vape",
 

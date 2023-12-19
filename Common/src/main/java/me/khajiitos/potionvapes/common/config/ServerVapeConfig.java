@@ -1,8 +1,6 @@
 package me.khajiitos.potionvapes.common.config;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 import me.khajiitos.potionvapes.common.PotionVapes;
 
 import java.io.File;
@@ -12,6 +10,7 @@ import java.io.IOException;
 
 public class ServerVapeConfig {
     private static final File file = new File("config/potionvapes.json");
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static boolean cancerMode = true;
 
     public static void init() {
@@ -37,7 +36,7 @@ public class ServerVapeConfig {
         jsonObject.addProperty("cancerMode", cancerMode);
 
         try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write(jsonObject.toString());
+            fileWriter.write(GSON.toJson(jsonObject));
         } catch (IOException e) {
             PotionVapes.LOGGER.error("Failed to save Potion Vapes config");
         }
