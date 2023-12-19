@@ -33,6 +33,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(path: ':Common')
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
     mappings loom.layered() {

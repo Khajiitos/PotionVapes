@@ -40,5 +40,7 @@
 
   "potionvapes.empty": "Empty",
   "potionvapes.effects": "Effects:",
-  "potionvapes.juice_left": "Juice left: %d%%"
+  "potionvapes.juice_left": "Juice left: %d%%",
+
+  "effect.potionvapes.lung_cancer": "Lung Cancer"
 }

@@ -20,6 +20,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class PotionVapesForge {
 
     public PotionVapesForge() {
+        PotionVapes.init();
+
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         PacketManager.instance = new ForgePacketManager();
@@ -34,6 +36,7 @@ public class PotionVapesForge {
         EnchantmentInit.init(eventBus);
         LootTablesInit.init(eventBus);
         ParticleTypeInit.init(eventBus);
+        MobEffectInit.init(eventBus);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> PotionVapesClient::init);
         MinecraftForge.EVENT_BUS.addListener(PotionVapesForge::onServerTick);
