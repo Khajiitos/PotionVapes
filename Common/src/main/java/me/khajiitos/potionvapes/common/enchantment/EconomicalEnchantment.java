@@ -3,7 +3,6 @@ package me.khajiitos.potionvapes.common.enchantment;
 import me.khajiitos.potionvapes.common.item.DisposableVapeItem;
 import me.khajiitos.potionvapes.common.item.VapeItem;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantmentCategory;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;

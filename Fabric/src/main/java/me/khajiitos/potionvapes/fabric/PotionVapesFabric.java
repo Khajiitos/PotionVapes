@@ -2,6 +2,7 @@ package me.khajiitos.potionvapes.fabric;
 
 import fuzs.extensibleenums.api.extensibleenums.v1.BuiltInEnumFactories;
 import me.khajiitos.potionvapes.common.PotionVapes;
+import me.khajiitos.potionvapes.common.event.LungCancerEvents;
 import me.khajiitos.potionvapes.common.packet.PacketManager;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantmentCategory;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
@@ -26,7 +27,9 @@ public class PotionVapesFabric implements ModInitializer {
         EnchantmentInit.init();
         LootTablesInit.init();
         ParticleTypeInit.init();
+        MobEffectInit.init();
 
         ServerTickEvents.START_SERVER_TICK.register(TickDelayedCalls::tick);
+        ServerTickEvents.START_SERVER_TICK.register((server) -> server.getPlayerList().getPlayers().forEach(LungCancerEvents::tickPlayer));
     }
 }

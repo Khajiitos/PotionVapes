@@ -6,6 +6,7 @@ import me.khajiitos.potionvapes.common.packet.PacketManager;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantmentCategory;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
 import me.khajiitos.potionvapes.forge.client.PotionVapesClient;
+import me.khajiitos.potionvapes.forge.event.ForgeLungCancerEvents;
 import me.khajiitos.potionvapes.forge.packet.ForgePacketManager;
 import me.khajiitos.potionvapes.forge.packet.ForgePackets;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
@@ -42,6 +43,8 @@ public class PotionVapesForge {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> PotionVapesClient::init);
         MinecraftForge.EVENT_BUS.addListener(PotionVapesForge::onServerTick);
         MinecraftForge.EVENT_BUS.addListener(PotionVapesForge::onPlayerTick);
+
+        MinecraftForge.EVENT_BUS.register(ForgeLungCancerEvents.class);
     }
 
     public static void onPlayerTick(TickEvent.PlayerTickEvent e) {

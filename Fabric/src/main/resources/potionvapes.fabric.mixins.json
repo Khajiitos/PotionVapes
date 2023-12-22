@@ -9,5 +9,9 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "refmap": "potionvapes.refmap.json"
+  "refmap": "potionvapes.refmap.json",
+  "mixins": [
+    "LivingEntityMixin",
+    "MilkBucketItemMixin"
+  ]
 }

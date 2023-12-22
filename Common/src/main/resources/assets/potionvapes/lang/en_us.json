@@ -44,5 +44,6 @@
   "potionvapes.effects": "Effects:",
   "potionvapes.juice_left": "Juice left: %d%%",
 
-  "effect.potionvapes.lung_cancer": "Lung Cancer"
+  "effect.potionvapes.lung_cancer": "Lung Cancer",
+  "effect.potionvapes.lung_cancer.description": "Gives debuffs caused by excessive vaping"
 }
