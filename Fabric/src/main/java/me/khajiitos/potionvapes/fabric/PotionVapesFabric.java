@@ -9,6 +9,11 @@ import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
 import me.khajiitos.potionvapes.fabric.packet.FabricPacketManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.minecraft.world.entity.ai.behavior.GoToPotentialJobSite;
+import net.minecraft.world.entity.ai.behavior.WorkAtComposter;
+import net.minecraft.world.entity.ai.behavior.WorkAtPoi;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.level.block.Blocks;
 
 public class PotionVapesFabric implements ModInitializer {
 
@@ -28,6 +33,7 @@ public class PotionVapesFabric implements ModInitializer {
         LootTablesInit.init();
         ParticleTypeInit.init();
         MobEffectInit.init();
+        ProfessionsInit.init();
 
         ServerTickEvents.START_SERVER_TICK.register(TickDelayedCalls::tick);
         ServerTickEvents.START_SERVER_TICK.register((server) -> server.getPlayerList().getPlayers().forEach(LungCancerEvents::tickPlayer));

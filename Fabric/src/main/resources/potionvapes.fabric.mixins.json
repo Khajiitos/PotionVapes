@@ -12,6 +12,7 @@
   "refmap": "potionvapes.refmap.json",
   "mixins": [
     "LivingEntityMixin",
-    "MilkBucketItemMixin"
+    "MilkBucketItemMixin",
+    "PoiTypesMixin"
   ]
 }

@@ -1,6 +1,6 @@
 package me.khajiitos.potionvapes.common.item;
 
-import me.khajiitos.potionvapes.common.VapeDamageTypes;
+import me.khajiitos.potionvapes.common.stuff.VapeDamageTypes;
 import me.khajiitos.potionvapes.common.client.StoppableSoundManager;
 import me.khajiitos.potionvapes.common.config.ServerVapeConfig;
 import me.khajiitos.potionvapes.common.effect.VapeMobEffects;
