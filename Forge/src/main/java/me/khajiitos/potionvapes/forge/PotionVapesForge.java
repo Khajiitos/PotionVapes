@@ -4,11 +4,16 @@ import me.khajiitos.potionvapes.common.PotionVapes;
 import me.khajiitos.potionvapes.common.event.LungCancerEvents;
 import me.khajiitos.potionvapes.common.packet.PacketManager;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantmentCategory;
+import me.khajiitos.potionvapes.common.stuff.VapePoiTypes;
+import me.khajiitos.potionvapes.common.stuff.VapeVillagerTrades;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
 import me.khajiitos.potionvapes.forge.client.PotionVapesClient;
 import me.khajiitos.potionvapes.forge.event.ForgeLungCancerEvents;
 import me.khajiitos.potionvapes.forge.packet.ForgePacketManager;
 import me.khajiitos.potionvapes.forge.packet.ForgePackets;
+import net.minecraft.data.worldgen.VillagePools;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,6 +44,9 @@ public class PotionVapesForge {
         LootTablesInit.init(eventBus);
         ParticleTypeInit.init(eventBus);
         MobEffectInit.init(eventBus);
+
+        ProfessionsInit.init(eventBus);
+        VapeVillagerTrades.init();
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> PotionVapesClient::init);
         MinecraftForge.EVENT_BUS.addListener(PotionVapesForge::onServerTick);

@@ -11,6 +11,7 @@
   },
   "refmap": "potionvapes.refmap.json",
   "mixins": [
-    "ServerPlayerMixin"
+    "ServerPlayerMixin",
+    "PoiTypesMixin"
   ]
 }
