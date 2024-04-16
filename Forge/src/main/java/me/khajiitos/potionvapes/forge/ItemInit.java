@@ -1,6 +1,7 @@
 package me.khajiitos.potionvapes.forge;
 
 import me.khajiitos.potionvapes.common.PotionVapes;
+import me.khajiitos.potionvapes.common.item.CreativeVapeItem;
 import me.khajiitos.potionvapes.common.item.DisposableVapeItem;
 import me.khajiitos.potionvapes.common.item.VapeItem;
 import me.khajiitos.potionvapes.common.item.VapeJuiceItem;
@@ -22,6 +23,7 @@ public class ItemInit {
 
     private static final RegistryObject<VapeItem> VAPE = ITEMS.register("vape", () -> VapeItems.VAPE);
     private static final RegistryObject<VapeItem> REINFORCED_VAPE = ITEMS.register("reinforced_vape", () -> VapeItems.REINFORCED_VAPE);
+    private static final RegistryObject<CreativeVapeItem> CREATIVE_VAPE = ITEMS.register("creative_vape", () -> VapeItems.CREATIVE_VAPE);
     private static final RegistryObject<DisposableVapeItem> WHITE_DISPOSABLE_VAPE = ITEMS.register("white_disposable_vape", () -> VapeItems.WHITE_DISPOSABLE_VAPE);
     private static final RegistryObject<DisposableVapeItem> ORANGE_DISPOSABLE_VAPE = ITEMS.register("orange_disposable_vape", () -> VapeItems.ORANGE_DISPOSABLE_VAPE);
     private static final RegistryObject<DisposableVapeItem> MAGENTA_DISPOSABLE_VAPE = ITEMS.register("magenta_disposable_vape", () -> VapeItems.MAGENTA_DISPOSABLE_VAPE);

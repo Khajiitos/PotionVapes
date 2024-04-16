@@ -32,12 +32,45 @@ public class VapeVillagerTrades {
                         new DisposableVapeForEmeralds(),
                 },
                 2, new VillagerTrades.ItemListing[]{
-                        new VapesForEmeralds()
+                        new DisposableVapeForEmeralds(),
+                        new VapeForEmeralds(false)
                 },
-                3, new VillagerTrades.ItemListing[]{},
-                4, new VillagerTrades.ItemListing[]{},
-                5, new VillagerTrades.ItemListing[]{}
+                3, new VillagerTrades.ItemListing[]{
+                        new VapeJuicesForEmeralds(),
+                        new VapeJuicesForEmeralds(),
+                        new VapeForEmeralds(true)
+                },
+                4, new VillagerTrades.ItemListing[]{
+                        new VapeJuicesForEmeralds(),
+                        new VapeJuicesForEmeralds(),
+                },
+                5, new VillagerTrades.ItemListing[]{
+                        new VapeJuicesForEmeralds(),
+                        new VapeJuicesForEmeralds()
+                }
         )));
+    }
+
+    private static class VapeJuicesForEmeralds implements VillagerTrades.ItemListing {
+        @Nullable
+        @Override
+        public MerchantOffer getOffer(@NotNull Entity entity, @NotNull RandomSource randomSource) {
+            List<Potion> potions = BuiltInRegistries.POTION.stream().filter(potion -> {
+                if (potion.getEffects().size() != 1) {
+                    return false;
+                }
+                MobEffect mobEffect = potion.getEffects().get(0).getEffect();
+                return mobEffect.isBeneficial() && !mobEffect.isInstantenous();
+            }).toList();
+
+            Potion selectedPotion = potions.get(randomSource.nextInt(potions.size()));
+
+            ItemStack result = new ItemStack(VapeItems.VAPE_JUICE, 1);
+            VapeItems.VAPE_JUICE.setVapeJuicePotion(result, selectedPotion);
+            VapeItems.VAPE_JUICE.setVapeJuiceLeft(result, 1.0);
+
+            return new MerchantOffer(new ItemStack(Items.EMERALD, randomSource.nextInt(2, 10)), result, 4, 4, 4.f);
+        }
     }
 
     private static class DisposableVapeForEmeralds implements VillagerTrades.ItemListing {
@@ -52,7 +85,7 @@ public class VapeVillagerTrades {
                     return false;
                 }
                 MobEffect mobEffect = potion.getEffects().get(0).getEffect();
-                return !mobEffect.isInstantenous();
+                return mobEffect.isBeneficial() && !mobEffect.isInstantenous();
             }).toList();
 
             Potion selectedPotion = potions.get(randomSource.nextInt(potions.size()));
@@ -65,11 +98,18 @@ public class VapeVillagerTrades {
         }
     }
 
-    private static class VapesForEmeralds implements VillagerTrades.ItemListing {
+    private static class VapeForEmeralds implements VillagerTrades.ItemListing {
+        private final boolean reinforced;
+
+        VapeForEmeralds(boolean reinforced) {
+            this.reinforced = reinforced;
+        }
+
+
         @Nullable
         @Override
         public MerchantOffer getOffer(@NotNull Entity entity, @NotNull RandomSource randomSource) {
-            return new MerchantOffer(new ItemStack(Items.EMERALD, 3), new ItemStack(VapeItems.VAPE), 4, 4, 4.f);
+            return new MerchantOffer(new ItemStack(Items.EMERALD, reinforced ? randomSource.nextInt(8, 12) : randomSource.nextInt(4, 8)), new ItemStack(reinforced ? VapeItems.REINFORCED_VAPE : VapeItems.VAPE), 4, 4, 4.f);
         }
     }
 }

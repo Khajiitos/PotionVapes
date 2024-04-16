@@ -1,5 +1,6 @@
 package me.khajiitos.potionvapes.common.stuff;
 
+import me.khajiitos.potionvapes.common.item.CreativeVapeItem;
 import me.khajiitos.potionvapes.common.item.DisposableVapeItem;
 import me.khajiitos.potionvapes.common.item.VapeItem;
 import me.khajiitos.potionvapes.common.item.VapeJuiceItem;
@@ -12,6 +13,7 @@ public class VapeItems {
     public static final VapeItem VAPE = new VapeItem(100);
     public static final VapeItem REINFORCED_VAPE = new VapeItem(300);
     public static final VapeJuiceItem VAPE_JUICE = new VapeJuiceItem();
+    public static final CreativeVapeItem CREATIVE_VAPE = new CreativeVapeItem();
     public static final BlockItem VAPE_JUICER = new BlockItem(VapeBlocks.VAPE_JUICER, new Item.Properties());
     public static final DisposableVapeItem WHITE_DISPOSABLE_VAPE = new DisposableVapeItem(DyeColor.WHITE);
     public static final DisposableVapeItem ORANGE_DISPOSABLE_VAPE = new DisposableVapeItem(DyeColor.ORANGE);
@@ -34,6 +36,7 @@ public class VapeItems {
         output.accept(VapeItems.VAPE_JUICER);
         output.accept(VapeItems.VAPE_JUICE);
         output.accept(VapeItems.VAPE);
+        output.accept(VapeItems.CREATIVE_VAPE);
         output.accept(VapeItems.REINFORCED_VAPE);
         output.accept(VapeItems.WHITE_DISPOSABLE_VAPE);
         output.accept(VapeItems.ORANGE_DISPOSABLE_VAPE);

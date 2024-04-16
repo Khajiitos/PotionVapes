@@ -21,6 +21,7 @@ public class ItemInit {
     public static void init() {
         Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(PotionVapes.MOD_ID, "vape"), VapeItems.VAPE);
         Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(PotionVapes.MOD_ID, "reinforced_vape"), VapeItems.REINFORCED_VAPE);
+        Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(PotionVapes.MOD_ID, "creative_vape"), VapeItems.CREATIVE_VAPE);
         Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(PotionVapes.MOD_ID, "vape_juicer"), VapeItems.VAPE_JUICER);
         Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(PotionVapes.MOD_ID, "vape_juice"), VapeItems.VAPE_JUICE);
 

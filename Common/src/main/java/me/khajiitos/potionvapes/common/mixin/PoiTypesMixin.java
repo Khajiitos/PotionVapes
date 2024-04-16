@@ -22,7 +22,6 @@ public abstract class PoiTypesMixin {
 
     @Inject(at = @At("TAIL"), method = "bootstrap")
     private static void bootstrap(Registry<PoiType> registry, CallbackInfoReturnable<PoiType> cir) {
-        System.out.println("tetesag");
         Registry.register(registry, VapePoiTypes.VAPE_ADDICT_POI_KEY, VapePoiTypes.VAPE_ADDICT_POI);
         registerBlockStates(registry.getHolderOrThrow(VapePoiTypes.VAPE_ADDICT_POI_KEY), VapePoiTypes.VAPE_ADDICT_POI.matchingStates());
     }

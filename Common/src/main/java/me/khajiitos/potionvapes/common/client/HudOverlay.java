@@ -1,5 +1,6 @@
 package me.khajiitos.potionvapes.common.client;
 
+import me.khajiitos.potionvapes.common.item.CreativeVapeItem;
 import me.khajiitos.potionvapes.common.item.IVapeDevice;
 import me.khajiitos.potionvapes.common.stuff.VapeItems;
 import net.minecraft.ChatFormatting;
@@ -27,8 +28,14 @@ public class HudOverlay {
                 VapeItems.VAPE_JUICE.setVapeJuicePotion(vapeJuiceItemStack, vapeDevice.getVapeJuicePotion(itemStack));
                 VapeItems.VAPE_JUICE.setVapeJuiceLeft(vapeJuiceItemStack, vapeDevice.getVapeJuiceLeft(itemStack));
 
-                int leftPercent = (int)(100.0 * vapeDevice.getVapeJuiceLeft(itemStack));
-                Component leftComponent = Component.literal(leftPercent + "%").withStyle(leftPercent > 0 ? ChatFormatting.GRAY : ChatFormatting.RED);
+                Component leftComponent;
+
+                if (vapeDevice instanceof CreativeVapeItem) {
+                    leftComponent = Component.literal("∞").withStyle(ChatFormatting.LIGHT_PURPLE);
+                } else {
+                    int leftPercent = (int)(100.0 * vapeDevice.getVapeJuiceLeft(itemStack));
+                    leftComponent = Component.literal(leftPercent + "%").withStyle(leftPercent > 0 ? ChatFormatting.GRAY : ChatFormatting.RED);
+                }
 
                 if (interactionHand == InteractionHand.MAIN_HAND) {
                     guiGraphics.renderItem(vapeJuiceItemStack, guiGraphics.guiWidth() - 20, guiGraphics.guiHeight() - 20);
