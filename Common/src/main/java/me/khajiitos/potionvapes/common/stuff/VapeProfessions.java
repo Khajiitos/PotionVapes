@@ -6,5 +6,5 @@ import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.npc.VillagerProfession;
 
 public class VapeProfessions {
-    public static final VillagerProfession VAPE_ADDICT = new VillagerProfession("vape_addict", VillagerProfession.ALL_ACQUIRABLE_JOBS.or((a)->true), VillagerProfession.ALL_ACQUIRABLE_JOBS.or((a)->true), ImmutableSet.of(), ImmutableSet.of(), SoundEvents.VILLAGER_WORK_ARMORER);
+    public static final VillagerProfession VAPE_ADDICT = new VillagerProfession("vape_addict", VillagerProfession.ALL_ACQUIRABLE_JOBS, VillagerProfession.ALL_ACQUIRABLE_JOBS, ImmutableSet.of(), ImmutableSet.of(), SoundEvents.VILLAGER_WORK_ARMORER);
 }

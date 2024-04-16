@@ -45,5 +45,7 @@
   "potionvapes.juice_left": "Juice left: %d%%",
 
   "effect.potionvapes.lung_cancer": "Lung Cancer",
-  "effect.potionvapes.lung_cancer.description": "Gives debuffs caused by excessive vaping"
+  "effect.potionvapes.lung_cancer.description": "Gives debuffs caused by excessive vaping",
+
+  "entity.minecraft.villager.potionvapes.vape_addict": "Vape Addict"
 }
