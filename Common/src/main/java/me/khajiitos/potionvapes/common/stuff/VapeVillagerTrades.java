@@ -69,7 +69,7 @@ public class VapeVillagerTrades {
             VapeItems.VAPE_JUICE.setVapeJuicePotion(result, selectedPotion);
             VapeItems.VAPE_JUICE.setVapeJuiceLeft(result, 1.0);
 
-            return new MerchantOffer(new ItemStack(Items.EMERALD, randomSource.nextInt(2, 10)), result, 4, 4, 4.f);
+            return new MerchantOffer(new ItemStack(Items.EMERALD, randomSource.nextInt(2, 10)), result, 8, 4, 1.f);
         }
     }
 
@@ -94,7 +94,7 @@ public class VapeVillagerTrades {
             disposableVapeItem.setVapeJuicePotion(result, selectedPotion);
             disposableVapeItem.setVapeJuiceLeft(result, 1.0);
 
-            return new MerchantOffer(new ItemStack(Items.EMERALD, randomSource.nextInt(3, 12)), result, 4, 4, 4.f);
+            return new MerchantOffer(new ItemStack(Items.EMERALD, randomSource.nextInt(3, 12)), result, 4, 4, 1.f);
         }
     }
 
@@ -109,7 +109,7 @@ public class VapeVillagerTrades {
         @Nullable
         @Override
         public MerchantOffer getOffer(@NotNull Entity entity, @NotNull RandomSource randomSource) {
-            return new MerchantOffer(new ItemStack(Items.EMERALD, reinforced ? randomSource.nextInt(8, 12) : randomSource.nextInt(4, 8)), new ItemStack(reinforced ? VapeItems.REINFORCED_VAPE : VapeItems.VAPE), 4, 4, 4.f);
+            return new MerchantOffer(new ItemStack(Items.EMERALD, reinforced ? randomSource.nextInt(8, 12) : randomSource.nextInt(4, 8)), new ItemStack(reinforced ? VapeItems.REINFORCED_VAPE : VapeItems.VAPE), 4, reinforced ? 12 : 8, 1.f);
         }
     }
 }
