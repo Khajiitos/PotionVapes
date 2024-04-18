@@ -30,7 +30,7 @@ public class HudOverlay {
 
                 Component leftComponent;
 
-                if (vapeDevice instanceof CreativeVapeItem) {
+                if (vapeDevice instanceof CreativeVapeItem && vapeDevice.getVapeJuiceLeft(itemStack) == 1.0) {
                     leftComponent = Component.literal("∞").withStyle(ChatFormatting.LIGHT_PURPLE);
                 } else {
                     int leftPercent = (int)(100.0 * vapeDevice.getVapeJuiceLeft(itemStack));

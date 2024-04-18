@@ -1,5 +1,7 @@
 package me.khajiitos.potionvapes.common.item;
 
+import me.khajiitos.potionvapes.common.PotionVapes;
+import me.khajiitos.potionvapes.common.client.PotionVapesClient;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +28,8 @@ public class CreativeVapeItem extends VapeItem {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {
         if (level.isClientSide && player.isCrouching()) {
-
+            // TODO: make sure this doesn't crash on the server side
+            PotionVapesClient.openCreativeVapeScreen();
         }
         return super.use(level, player, interactionHand);
     }
