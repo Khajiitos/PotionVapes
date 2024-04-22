@@ -1,5 +1,6 @@
 package me.khajiitos.potionvapes.common.client.screen;
 
+import me.khajiitos.potionvapes.common.client.widget.CreativeVapeListWidget;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractScrollWidget;
 import net.minecraft.client.gui.screens.Screen;
@@ -14,7 +15,7 @@ public class CreativeVapeSelectionScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        //this.addRenderableWidget(new AbstractScrollWidget())
+        this.addRenderableWidget(new CreativeVapeListWidget(this.width / 2 - 100, this.height / 2 - 200, 200, 400, Component.empty()));
     }
 
     @Override
