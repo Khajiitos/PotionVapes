@@ -1,0 +1,54 @@
+{
+  "item.potionvapes.vape": "电子烟",
+  "item.potionvapes.reinforced_vape": "强化电子烟",
+  "item.potionvapes.creative_vape": "创意电子烟",
+  "item.potionvapes.vape_juice": "电子烟果汁",
+
+  "item.potionvapes.black_disposable_vape": "黑色一次性电子烟",
+  "item.potionvapes.purple_disposable_vape": "紫色一次性电子烟",
+  "item.potionvapes.light_gray_disposable_vape": "淡灰色一次性电子烟",
+  "item.potionvapes.magenta_disposable_vape": "品红色一次性电子烟",
+  "item.potionvapes.gray_disposable_vape": "灰色一次性电子烟",
+  "item.potionvapes.cyan_disposable_vape": "青色一次性电子烟",
+  "item.potionvapes.yellow_disposable_vape": "黄色一次性电子烟",
+  "item.potionvapes.light_blue_disposable_vape": "淡蓝色一次性电子烟",
+  "item.potionvapes.lime_disposable_vape": "黄绿色一次性电子烟",
+  "item.potionvapes.red_disposable_vape": "红色一次性电子烟",
+  "item.potionvapes.orange_disposable_vape": "橙色一次性电子烟",
+  "item.potionvapes.white_disposable_vape": "白色一次性电子烟",
+  "item.potionvapes.pink_disposable_vape": "粉红色一次性电子烟",
+  "item.potionvapes.blue_disposable_vape": "蓝色一次性电子烟",
+  "item.potionvapes.brown_disposable_vape": "棕色一次性电子烟",
+  "item.potionvapes.green_disposable_vape": "绿色一次性电子烟",
+
+  "block.potionvapes.vape_juicer": "电子烟榨汁机",
+
+  "enchantment.potionvapes.inhaling": "吸入",
+  "enchantment.potionvapes.inhaling.description": "使吸气更有效",
+  "enchantment.potionvapes.economical": "经济型",
+  "enchantment.potionvapes.economical.description": "使电子烟使用更少的电子烟汁",
+  "enchantment.potionvapes.smoking": "吸烟",
+  "enchantment.potionvapes.smoking.description": "让吸管释放更多烟雾",
+  "enchantment.potionvapes.healthy": "健康",
+  "enchantment.potionvapes.healthy.description": "大大降低因吸食电子烟而患肺癌的几率",
+
+  "death.attack.vape_choke": "%1$s 被吸食电子烟呛到",
+
+  "potionvapes.container.vape_juicer": "电子烟榨汁机",
+
+  "potionvapes.subtitle.vape": "吸电子烟",
+  "potionvapes.subtitle.exhale": "吐气",
+
+  "itemGroup.potionvapes": "药水电子烟s",
+
+  "potionvapes.empty": "空",
+  "potionvapes.effects": "效果:",
+  "potionvapes.juice_left": "剩余果汁: %d%%",
+  "potionvapes.creative_vape_description": "在背包中堆叠药水或果汁以应用它",
+
+  "effect.potionvapes.lung_cancer": "肺癌",
+  "effect.potionvapes.lung_cancer.description": "过度吸食造成的 debuff",
+
+  "entity.minecraft.villager.potionvapes.vape_dealer": "电子烟经销商",
+  "entity.minecraft.villager.vape_dealer": "电子烟经销商"
+}
