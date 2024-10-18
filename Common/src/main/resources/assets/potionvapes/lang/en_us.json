@@ -44,9 +44,11 @@
   "potionvapes.empty": "Empty",
   "potionvapes.effects": "Effects:",
   "potionvapes.juice_left": "Juice left: %d%%",
+  "potionvapes.creative_vape_description": "Stack potion or juice in the inventory to apply it",
 
   "effect.potionvapes.lung_cancer": "Lung Cancer",
   "effect.potionvapes.lung_cancer.description": "Gives debuffs caused by excessive vaping",
 
-  "entity.minecraft.villager.potionvapes.vape_addict": "Vape Addict"
+  "entity.minecraft.villager.potionvapes.vape_dealer": "Vape Dealer",
+  "entity.minecraft.villager.vape_dealer": "Vape Dealer"
 }

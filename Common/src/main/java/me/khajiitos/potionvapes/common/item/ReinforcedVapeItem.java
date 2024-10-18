@@ -18,5 +18,4 @@ public class ReinforcedVapeItem extends VapeItem {
     public boolean isValidRepairItem(@NotNull ItemStack itemStack, ItemStack testedItem) {
         return testedItem.is(Items.NETHERITE_INGOT);
     }
-
 }

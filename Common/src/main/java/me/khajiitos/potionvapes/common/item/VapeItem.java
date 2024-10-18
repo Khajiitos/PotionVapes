@@ -1,18 +1,20 @@
 package me.khajiitos.potionvapes.common.item;
 
-import me.khajiitos.potionvapes.common.stuff.VapeDamageTypes;
 import me.khajiitos.potionvapes.common.client.StoppableSoundManager;
 import me.khajiitos.potionvapes.common.config.ServerVapeConfig;
 import me.khajiitos.potionvapes.common.effect.VapeMobEffects;
 import me.khajiitos.potionvapes.common.packet.PacketManager;
 import me.khajiitos.potionvapes.common.particle.VapeParticleOption;
+import me.khajiitos.potionvapes.common.stuff.VapeDamageTypes;
 import me.khajiitos.potionvapes.common.stuff.VapeEnchantments;
+import me.khajiitos.potionvapes.common.stuff.VapeItems;
 import me.khajiitos.potionvapes.common.stuff.VapeSoundEvents;
 import me.khajiitos.potionvapes.common.util.ILungCancerable;
 import me.khajiitos.potionvapes.common.util.TickDelayedCalls;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -20,9 +22,13 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -45,6 +51,36 @@ public class VapeItem extends Item implements IVapeDevice {
     public int getEnchantmentValue() {
         return 12;
     }
+
+    @Override
+    public boolean overrideOtherStackedOnMe(@NotNull ItemStack me, @NotNull ItemStack other, @NotNull Slot slot, @NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess slotAccess) {
+        if (clickAction != ClickAction.PRIMARY) {
+            return false;
+        }
+
+        if (!(this instanceof CreativeVapeItem) && !player.isCreative()) {
+            return false;
+        }
+
+        Item item = other.getItem();
+
+        Potion potion;
+        if (item == Items.POTION) {
+            potion = PotionUtils.getPotion(other);
+            setVapeJuiceLeft(me, 1.0);
+        } else if (item == VapeItems.VAPE_JUICE) {
+            potion = getVapeJuicePotion(other);
+            setVapeJuiceLeft(me, getVapeJuiceLeft(other));
+        } else {
+            return false;
+        }
+
+        player.playSound(SoundEvents.BOTTLE_FILL, 0.8F, 0.8F);
+        setVapeJuicePotion(me, potion);
+        other.setCount(0);
+        return true;
+    }
+
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {

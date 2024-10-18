@@ -1,14 +1,15 @@
 package me.khajiitos.potionvapes.common.item;
 
-import me.khajiitos.potionvapes.common.PotionVapes;
-import me.khajiitos.potionvapes.common.client.PotionVapesClient;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class CreativeVapeItem extends VapeItem {
     public CreativeVapeItem() {
@@ -26,11 +27,9 @@ public class CreativeVapeItem extends VapeItem {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {
-        if (level.isClientSide && player.isCrouching()) {
-            // TODO: make sure this doesn't crash on the server side
-            PotionVapesClient.openCreativeVapeScreen();
-        }
-        return super.use(level, player, interactionHand);
+    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, List<Component> list, @NotNull TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, level, list, tooltipFlag);
+        list.add(Component.literal(" "));
+        list.add(Component.translatable("potionvapes.creative_vape_description").withStyle(ChatFormatting.DARK_GRAY));
     }
 }

@@ -1,9 +1,6 @@
 package me.khajiitos.potionvapes.common.stuff;
 
-import me.khajiitos.potionvapes.common.item.CreativeVapeItem;
-import me.khajiitos.potionvapes.common.item.DisposableVapeItem;
-import me.khajiitos.potionvapes.common.item.VapeItem;
-import me.khajiitos.potionvapes.common.item.VapeJuiceItem;
+import me.khajiitos.potionvapes.common.item.*;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
@@ -11,7 +8,7 @@ import net.minecraft.world.item.Item;
 
 public class VapeItems {
     public static final VapeItem VAPE = new VapeItem(100);
-    public static final VapeItem REINFORCED_VAPE = new VapeItem(300);
+    public static final VapeItem REINFORCED_VAPE = new ReinforcedVapeItem(300);
     public static final VapeJuiceItem VAPE_JUICE = new VapeJuiceItem();
     public static final CreativeVapeItem CREATIVE_VAPE = new CreativeVapeItem();
     public static final BlockItem VAPE_JUICER = new BlockItem(VapeBlocks.VAPE_JUICER, new Item.Properties());
